@@ -286,3 +286,120 @@ Can have parameters	               Cannot have parameters
 Can be overloaded               	Cannot be overloaded
 Exists in Java and C++           	Exists only in C++
 }
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+1-----THIS Keyword
+. Why do we use the this keyword?
+
+We use the this keyword to refer to the current object of the class. It is mainly used to resolve the ambiguity between instance variables and local variables
+(or constructor parameters) when they have the same name. It is also used for constructor chaining, calling current class methods, passing the 
+current object, and returning the current object.
+
+
+2-----Uses of this
+
+There are 5 important uses.
+****Refer to Current Object Variables ⭐⭐⭐⭐⭐
+
+Most common interview question.
+
+class Student{
+
+    String name;
+
+    Student(String name){
+
+        this.name = name;
+    }
+}
+*****Use Case 2: Call Current Class Method ⭐⭐⭐⭐
+Example
+class Student {
+
+    void study() {
+        System.out.println("Studying...");
+    }
+
+    void display() {
+        this.study();
+    }
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+
+        s1.display();
+    }
+}
+*****Use Case 3: Call Another Constructor (Constructor Chaining) ⭐⭐⭐⭐⭐
+Example
+class Student {
+
+    Student() {
+        this("Yash");
+    }
+
+    Student(String name) {
+        System.out.println(name);
+    }
+
+    public static void main(String[] args) {
+
+        new Student();
+    }
+}
+*****Use Case 4: Pass Current Object as an Argument
+******To return the current object.
+Can we use this in a static method?
+
+Answer:
+
+No. A static method belongs to the class, not to an object, so there is no current object for this to refer to.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1-FINAL Keyword
+final is a keyword used to restrict modification. It can be applied to variables, methods, and classes.
+There are 3 main uses of final:
+
+Final Variable
+Final Method
+Final Class
+
+
+1. Final Variable ⭐⭐⭐⭐⭐
+Definition
+A final variable can be assigned only once.
+Once a value is assigned, it cannot be changed.
+
+2. Final Method ⭐⭐⭐⭐
+A final method cannot be overridden.
+Parent
+class Animal {
+    final void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+Child
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog");
+    }
+}
+Output
+Compile Error
+
+
+3. Final Class ⭐⭐⭐⭐⭐
+A final class cannot be inherited.
+Example
+final class Animal {
+
+}
+Now
+class Dog extends Animal {
+
+}
+Compile Error.
