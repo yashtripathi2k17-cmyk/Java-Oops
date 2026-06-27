@@ -76,3 +76,37 @@ Student s1;    	Student s1 = new Student();
 s1 is the object    	s1 is a reference variable
 Object can be on the stack  	Object is created on the heap
 new is optional   	new is required for normal object creation
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1---Why is Java considered more object-oriented than C++?
+
+Answer:
+
+Both Java and C++ support object-oriented programming. However, Java is designed primarily around classes and objects, 
+whereas C++ supports both procedural and object-oriented programming. In Java, almost everything 
+is organized inside classes, while in C++ you can write programs without using classes.
+asy 
+
+2--Comparison
+C++	   Java
+Supports Procedural + OOP	        Primarily OOP
+Can write programs without classes     	Every method belongs to a class
+Manual memory management        	Automatic Garbage Collection
+Uses pointers	Uses references
+
+
+
+3-Why do we use OOPs?
+
+Answer:
+
+We use OOPs because it helps us organize our code into classes and objects. As software projects become larger, writing everything in one place makes the code difficult to understand and maintain. 
+OOPs makes the code reusable, easier to manage, more secure, and closer to real-world o
+Suppose I'm developing a college management system. Instead of creating thousands of separate variables for every student, I create one Student class and then create many student objects from it. 
+This keeps the code organized and avoids repetition
+OOPs is used to organize code into classes and objects. It helps reduce code duplication, improves code reusability, makes applications easier to maintain, and models real-world entities like 
+Student, Car, or Employee.
+
+
+
