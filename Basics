@@ -1,0 +1,78 @@
+ 1----Instance Variable (Object Variable)
+
+An instance variable is a variable that belongs to an object. It is declared inside a class but outside any method.
+
+Example
+class Student {
+    String name;   // Instance variable
+    int age;       // Instance variable
+}
+
+Here,
+
+name is an instance variable.
+age is an instance variable.
+
+When an object is created, every object gets its own copy of these variables.
+
+2---- Reference Variable
+
+A reference variable stores the address (reference) of an object.
+
+It does not store the object itself.
+
+
+3----Quick Difference
+Instance Variable   	Reference Variable
+Stores object's data  	Stores object's address
+Declared inside class	  Declared when creating an object
+Each object has its own copy   	Points to an object
+Example: name, age   	Example: s1, student
+
+
+4----Student s1(compile time) = new Student();(Runtime )
+Student → Class
+s1 → Reference variable
+new Student() → Creates the object
+name, age (inside the class) → Instance variables
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1---------Why are they different?
+C++
+Student s1;
+The object is created directly.
+s1 is the object.
+Memory is usually allocated on the stack (unless you use new).
+
+
+
+Java
+Student s1 = new Student();
+The object is always created using new.
+s1 is not the object.
+s1 only stores a reference (address) to the object.
+
+NOTE==Student student1;
+This line does NOT create an object. 
+It only creates a reference variable.
+
+--Creating an object
+Now write
+student1 = new Student();
+
+This is where the magic happens.
+The keyword new
+
+*allocates memory dynamically
+*creates the object
+*initializes default values
+*returns the address of that object
+
+2---Comparison
+C++	          Java
+Student s1;    	Student s1 = new Student();
+s1 is the object    	s1 is a reference variable
+Object can be on the stack  	Object is created on the heap
+new is optional   	new is required for normal object creation
