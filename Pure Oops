@@ -403,3 +403,154 @@ class Dog extends Animal {
 
 }
 Compile Error.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+What are Access Modifiers?
+
+Access modifiers control who can access variables, methods, and classes.
+
+There are mainly three common access modifiers in both languages:
+
+public
+private
+protected
+
+Java also has one extra:
+default (package-private)
+1. public
+Accessible from anywhere.
+
+C++
+class Student {
+public:
+    string name;
+};
+Student s;
+s.name = "Yash";   // ✅
+Java
+class Student {
+    public String name;
+}
+Student s = new Student();
+s.name = "Yash";   // ✅
+
+No difference.
+
+2. private
+Accessible only inside the same class.
+
+C++
+class Student {
+private:
+    int marks;
+};
+Student s;
+s.marks = 90;   // ❌ Error
+Java
+class Student {
+    private int marks;
+}
+Student s = new Student();
+s.marks = 90;   // ❌ Error
+Again, same behavior.
+
+3. protected
+Accessible:
+Inside the class
+By child classes
+
+C++
+class Person {
+protected:
+    int age;
+};
+class Student : public Person {
+
+public:
+
+    void show() {
+
+        age = 21;   // ✅
+    }
+};
+Java
+class Person {
+
+    protected int age;
+}
+
+class Student extends Person {
+
+    void show() {
+
+        age = 21;   // ✅
+    }
+}
+Same behavior in inheritance.
+
+4. Default (Only in Java)
+This is the biggest difference.
+If you don't write any access modifier:
+
+class Student {
+    int marks;
+}
+marks becomes package-private (default access).
+It can be accessed only by classes in the same package.
+
+C++ has no package system, so it has no equivalent modifier.
+
+Biggest Difference: Default Access
+C++
+class Student {
+
+    int age;
+};
+
+Is age default/package-private?
+
+❌ No.
+
+It is private by default because it's inside a class.
+
+Java
+class Student {
+
+    int age;
+}
+
+age is not private.
+
+It has default (package-private) access.
+
+This is a very common interview question.
+Interview Question
+Q: What is the biggest difference between C++ and Java access modifiers?
+
+Answer:
+
+The biggest differences are:
+
+Java has a default (package-private) access modifier, while C++ does not.
+C++ supports friend functions and friend classes, but Java does not.
+C++ supports public, protected, and private inheritance, whereas Java uses only extends, which behaves like public inheritance.
+
+
+First Remember One Line ⭐⭐⭐⭐⭐
+protected members can be accessed:
+
+✅ Inside the same package.
+✅ In subclasses, even if they are in a different package.
+❌ Not by non-subclasses in a different package.
+
+Most Asked Interview Question
+Q:
+
+Can a protected member be accessed in a different package?
+
+Answer:
+
+Yes, but only through inheritance. A subclass in a different package can access the inherited
+protected member using this or super (or directly), but it cannot access it through a parent class object.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
