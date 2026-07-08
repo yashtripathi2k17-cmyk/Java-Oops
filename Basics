@@ -108,5 +108,996 @@ This keeps the code organized and avoids repetition
 OOPs is used to organize code into classes and objects. It helps reduce code duplication, improves code reusability, makes applications easier to maintain, and models real-world entities like 
 Student, Car, or Employee.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
+1---What is a Class?
+A class is a blueprint or template used to create objects. It defines the attributes (data) and methods (behavior) of an object. It is a logical entity and does not occupy memory until an object is created.
+
+What is an Object?
+An object is an instance of a class. It represents a real-world entity, occupies memory, stores actual data, and is used to access the class's attributes and methods.
+
+2--- Class vs Object
+Class	        Object
+Blueprint	Real thing      created from the blueprint
+Logical entity	             Physical entity
+Doesn't occupy memory by itself	  Occupies memory
+Used to create objects	       Created from a class
+One class can create many objects	   Each object has its own data
+
+
+3----example
+class Student {
+
+    // Attributes (Instance Variables)
+    int rollNo;
+    String name;
+    int age;
+
+    // Method
+    void study() {
+        System.out.println(name + " is studying.");
+    }
+
+    // Method
+    void display() {
+        System.out.println("Student Details");
+        System.out.println("Roll No : " + rollNo);
+        System.out.println("Name    : " + name);
+        System.out.println("Age     : " + age);
+    }
+
+    public static void main(String[] args) {
+
+        // Creating Object
+        Student s1 = new Student();
+
+        // Assigning Values
+        s1.rollNo = 101;
+        s1.name = "Yash";
+        s1.age = 22;
+
+        // Calling Methods
+        s1.display();
+NOTE---A class is a logical blueprint, an object is a physical instance in memory, attributes describe the object's state, and methods define its behavior.
+        s1.study();
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1---Constructor
+A constructor is a special member of a class that is automatically called when an object is created. Its main purpose is to initialize the object's data.
+
+ Characteristics of a Constructor
+1. Constructor name must be the same as the class name.
+2 Constructor has no return type.
+3 Constructor is called automatically.
+4 Constructor executes only once per object.
+
+Important Interview Questions
+1. What is a constructor?
+
+Answer:
+
+A constructor is a special member of a class that is automatically called when an object is created to initialize the object's data.
+
+2. Why do we use constructors?
+
+To initialize object data automatically at the time of object creation.
+
+3. Can a constructor return a value?
+
+No. Constructors do not have a return type.
+
+4. Can a constructor be private?
+
+Yes. A private constructor is commonly used in the Singleton Design Pattern to prevent object creation from outside the class.
+
+5. Can constructors be overloaded?
+
+Yes. A class can have multiple constructors with different parameter lists.
+
+6. Can constructors be inherited?
+
+No. Constructors are not inherited by subclasses.
+
+7. Can constructors be overridden?
+
+No. Since constructors are not inherited, they cannot be overridden.
+
+8. What happens if you don't write any constructor?
+
+The Java compiler automatically provides a default constructor (only if you haven't written any constructor yourself).
+
+9. What is constructor chaining?
+
+Calling one constructor from another constructor in the same class using this(
+
+
+
+3---Types of Constructors
+
+There are mainly 3 types:
+
+Default Constructor
+Parameterized Constructor
+Copy Constructor (C++ only)
+
+1. Default Constructor
+
+A constructor with no parameters.
+
+Java
+class Student {
+
+    Student() {
+        System.out.println("Default Constructor Called");
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student();
+    }
+}
+Output
+Default Constructor Called
+C++
+2---Paramaterised Constructor
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+
+    string name;
+
+    Student(string n) {
+        name = n;
+    }
+
+    void display() {
+        cout << name;
+    }
+};
+
+int main() {
+
+    Student s1("Yash");
+
+    s1.display();
+
+    return 0;
+}
+
+
+3-----Copy Constructor (C++ Only)
+
+A copy constructor creates a new object as a copy of an existing object.
+
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+
+    string name;
+
+    Student(string n) {
+        name = n;
+    }
+
+    Student(const Student &s) {
+        name = s.name;
+    }
+
+    void display() {
+        cout << name << endl;
+    }
+};
+
+int main() {
+
+    Student s1("Yash");
+
+    Student s2 = s1;
+
+    s2.display();
+
+    return 0;
+}
+
+Output
+
+Yash
+Why?
+
+Instead of writing values again, we copy another object's data.
+
+Java does not have copy constructors built into the language. 
+Objects are usually copied by creating a new object and copying fields manually or by using methods like clone().
+
+
+5---------Constructor Overloading
+What is it?
+
+Having multiple constructors with different parameter lists in the same class.
+
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+
+    Student() {
+        cout << "Default" << endl;
+    }
+
+    Student(string name) {
+        cout << name << endl;
+    }
+
+    Student(string name, int age) {
+        cout << name << " " << age << endl;
+    }
+};
+
+int main() {
+
+    Student s1;
+
+    Student s2("Yash");
+
+    Student s3("Yash",22);
+
+    return 0;
+}
+
+6----Destructor
+
+A destructor is a special function used to destroy an object and release its resources.
+
+C++
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+
+    Student() {
+        cout << "Constructor Called" << endl;
+    }
+
+    ~Student() {
+        cout << "Destructor Called" << endl;
+    }
+};
+
+int main() {
+
+    Student s1;
+
+    return 0;
+}
+Output
+
+Constructor Called
+Destructor Called
+Why?
+
+When main() finishes, the object s1 goes out of scope, so the destructor runs automatically.
+
+
+7-----Constructor vs Destructor
+Constructor	                        Destructor
+Creates/initializes object	        Cleans up object
+Called when object is created     	Called when object is destroyed
+Same name as class                 	Same name as class with ~ (C++)
+Can have parameters	               Cannot have parameters
+Can be overloaded               	Cannot be overloaded
+Exists in Java and C++           	Exists only in C++
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+1-----THIS Keyword
+. Why do we use the this keyword?
+
+We use the this keyword to refer to the current object of the class. It is mainly used to resolve the ambiguity between instance variables and local variables
+(or constructor parameters) when they have the same name. It is also used for constructor chaining, calling current class methods, passing the 
+current object, and returning the current object.
+
+Interview Definition
+this refers to the current object and is mainly used to differentiate instance variables from local variables.
+
+
+2-----Uses of this
+
+There are 5 important uses.
+****Refer to Current Object Variables ⭐⭐⭐⭐⭐
+
+Most common interview question.
+
+class Student{
+
+    String name;
+
+    Student(String name){
+
+        this.name = name;
+    }
+}
+*****Use Case 2: Call Current Class Method ⭐⭐⭐⭐
+Example
+class Student {
+
+    void study() {
+        System.out.println("Studying...");
+    }
+
+    void display() {
+        this.study();
+    }
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+
+        s1.display();
+    }
+}
+*****Use Case 3: Call Another Constructor (Constructor Chaining) ⭐⭐⭐⭐⭐
+Example
+class Student {
+
+    Student() {
+        this("Yash");
+    }
+
+    Student(String name) {
+        System.out.println(name);
+    }
+
+    public static void main(String[] args) {
+
+        new Student();
+    }
+}
+*****Use Case 4: Pass Current Object as an Argument
+******To return the current object.
+Can we use this in a static method?
+
+Answer:
+
+No. A static method belongs to the class, not to an object, so there is no current object for this to refer to.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1-FINAL Keyword
+final is a keyword used to restrict modification. It can be applied to variables, methods, and classes.
+There are 3 main uses of final:
+
+Final Variable
+Final Method
+Final Class
+
+
+1. Final Variable ⭐⭐⭐⭐⭐
+Definition
+A final variable can be assigned only once.
+Once a value is assigned, it cannot be changed.
+
+2. Final Method ⭐⭐⭐⭐
+A final method cannot be overridden.
+Parent
+class Animal {
+    final void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+Child
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog");
+    }
+}
+Output
+Compile Error
+
+
+3. Final Class ⭐⭐⭐⭐⭐
+A final class cannot be inherited.
+Example
+final class Animal {
+
+}
+Now
+class Dog extends Animal {
+
+}
+Compile Error.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+What are Access Modifiers?
+
+Access modifiers control who can access variables, methods, and classes.
+
+There are mainly three common access modifiers in both languages:
+
+public
+private
+protected
+
+Java also has one extra:
+default (package-private)
+1. public
+Accessible from anywhere.
+
+C++
+class Student {
+public:
+    string name;
+};
+Student s;
+s.name = "Yash";   // ✅
+Java
+class Student {
+    public String name;
+}
+Student s = new Student();
+s.name = "Yash";   // ✅
+
+No difference.
+
+2. private
+Accessible only inside the same class.
+
+C++
+class Student {
+private:
+    int marks;
+};
+Student s;
+s.marks = 90;   // ❌ Error
+Java
+class Student {
+    private int marks;
+}
+Student s = new Student();
+s.marks = 90;   // ❌ Error
+Again, same behavior.
+
+3. protected
+Accessible:
+Inside the class
+By child classes
+
+C++
+class Person {
+protected:
+    int age;
+};
+class Student : public Person {
+
+public:
+
+    void show() {
+
+        age = 21;   // ✅
+    }
+};
+Java
+class Person {
+
+    protected int age;
+}
+
+class Student extends Person {
+
+    void show() {
+
+        age = 21;   // ✅
+    }
+}
+Same behavior in inheritance.
+
+4. Default (Only in Java)
+This is the biggest difference.
+If you don't write any access modifier:
+
+class Student {
+    int marks;
+}
+marks becomes package-private (default access).
+It can be accessed only by classes in the same package.
+
+C++ has no package system, so it has no equivalent modifier.
+
+Biggest Difference: Default Access
+C++
+class Student {
+
+    int age;
+};
+
+Is age default/package-private?
+
+❌ No.
+
+It is private by default because it's inside a class.
+
+Java
+class Student {
+
+    int age;
+}
+
+age is not private.
+
+It has default (package-private) access.
+
+This is a very common interview question.
+Interview Question
+Q: What is the biggest difference between C++ and Java access modifiers?
+
+Answer:
+
+The biggest differences are:
+
+Java has a default (package-private) access modifier, while C++ does not.
+C++ supports friend functions and friend classes, but Java does not.
+C++ supports public, protected, and private inheritance, whereas Java uses only extends, which behaves like public inheritance.
+
+
+First Remember One Line ⭐⭐⭐⭐⭐
+protected members can be accessed:
+
+✅ Inside the same package.
+✅ In subclasses, even if they are in a different package.
+❌ Not by non-subclasses in a different package.
+
+Most Asked Interview Question
+Q:
+
+Can a protected member be accessed in a different package?
+
+Answer:
+
+Yes, but only through inheritance. A subclass in a different package can access the inherited
+protected member using this or super (or directly), but it cannot access it through a parent class object.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+1--------Static Keyword in Java (Interview Notes)
+
+The static keyword is used for class-level members.
+it is mainly is used memory mangement in java
+
+Static belongs to the class, not to individual objects.
+
+There are 3 main uses of static in Java:
+
+Static Variable
+Static Method
+Static Block
+1. Static Variable
+What is a Static Variable?
+
+A static variable is shared by all objects of a class.
+
+There is only one copy of a static variable, no matter how many objects are created.
+
+Why Do We Need a Static Variable?
+
+Suppose every student belongs to the same college.
+
+Without static
+
+class Student {
+
+    String name;
+    int rollNo;
+    String college = "Poornima";
+}
+Student s1 = new Student();
+Student s2 = new Student();
+Student s3 = new Student();
+
+Memory
+
+Student 1
+---------
+college = Poornima
+
+Student 2
+---------
+college = Poornima
+
+Student 3
+---------
+college = Poornima
+
+Three copies of "Poornima" are created.
+
+This wastes memory.
+
+Solution
+class Student {
+
+    String name;
+    int rollNo;
+
+    static String college = "Poornima";
+}
+
+Memory
+
+Method Area (Class Memory)
+
+Student Class
+--------------
+college = Poornima
+
+Heap
+
+Student Object 1
+name
+rollNo
+
+Student Object 2
+name
+rollNo
+
+Student Object 3
+name
+rollNo
+
+Now only one copy of college exists.
+
+Every object shares it.
+
+Example
+class Student {
+
+    String name;
+    static String college = "Poornima";
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+        Student s2 = new Student();
+
+        s1.name = "Yash";
+        s2.name = "Rahul";
+
+        System.out.println(s1.college);
+        System.out.println(s2.college);
+    }
+}
+
+Output
+
+Poornima
+Poornima
+Changing Static Variable
+class Student {
+
+    static String college = "Poornima";
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+        Student s2 = new Student();
+
+        s1.college = "JECRC";
+
+        System.out.println(s1.college);
+        System.out.println(s2.college);
+    }
+}
+
+Output
+
+JECRC
+JECRC
+Why?
+
+Because there is only one shared copy of college.
+
+Interview Definition
+
+A static variable belongs to the class instead of individual objects. Only one copy is created and shared among all objects.
+
+2. Static Method
+What is a Static Method?
+
+A static method belongs to the class, not to an object.
+
+It can be called without creating an object.
+
+Why Do We Need It?
+
+Suppose you want to print the college name.
+
+Without static
+
+Student s = new Student();
+s.displayCollege();
+
+But the method only uses a static variable.
+
+Creating an object is unnecessary.
+
+Solution
+class Student {
+
+    static String college = "Poornima";
+
+    static void displayCollege() {
+
+        System.out.println(college);
+    }
+}
+
+Call it directly:
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student.displayCollege();
+    }
+}
+
+Output
+
+Poornima
+Can Static Method Access Static Variable?
+class Student {
+
+    static String college = "Poornima";
+
+    static void show() {
+
+        System.out.println(college);
+    }
+}
+
+✅ Yes
+
+Can Static Method Access Instance Variable?
+class Student {
+
+    int age = 20;
+
+    static void show() {
+
+        System.out.println(age);
+    }
+}
+
+❌ Compile Time Error
+
+Why?
+
+Because age belongs to an object, but a static method belongs to the class.
+
+There may be many objects with different values of age.
+
+Java doesn't know which object's age to use.
+
+Correct Way
+class Student {
+
+    int age = 20;
+
+    static void show() {
+
+        Student s = new Student();
+
+        System.out.println(s.age);
+    }
+}
+
+Now the method has a specific object to access.
+
+Why is main() Static?
+public static void main(String[] args)
+
+When the JVM starts your program, no object exists yet.
+
+The JVM must call main() directly.
+
+That's why main() is static.
+
+Interview Definition
+
+A static method belongs to the class and can be called without creating an object.
+
+3. Static Block
+What is a Static Block?
+
+A static block is a block of code that runs once when the class is loaded into memory.
+
+Syntax
+
+static {
+
+}
+Why Do We Need It?
+
+Sometimes we want to execute initialization code before main() starts.
+
+For example:
+
+Load configuration
+Connect to a database
+Print a startup message
+Initialize static variables
+Example
+class Student {
+
+    static {
+
+        System.out.println("Application Started");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Method");
+    }
+}
+
+Output
+
+Application Started
+Main Method
+Example with Constructor
+class Student {
+
+    static {
+
+        System.out.println("Static Block");
+    }
+
+    Student() {
+
+        System.out.println("Constructor");
+    }
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+    }
+}
+
+Output
+
+Static Block
+Constructor
+Multiple Static Blocks
+class Test {
+
+    static {
+
+        System.out.println("First");
+    }
+
+    static {
+
+        System.out.println("Second");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main");
+    }
+}
+
+Output
+
+First
+Second
+Main
+
+Static blocks execute in the order they appear.
+
+Complete Execution Flow
+
+Consider this program:
+
+class Test {
+
+    static int x = 10;
+
+    static {
+
+        System.out.println("Static Block");
+    }
+
+    Test() {
+
+        System.out.println("Constructor");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Method");
+
+        Test t = new Test();
+    }
+}
+
+Execution order:
+
+Program Starts
+      ↓
+Class Loaded
+      ↓
+Static Variable Initialized
+      ↓
+Static Block Executes
+      ↓
+main() Starts
+      ↓
+Object Created
+      ↓
+Constructor Executes
+      ↓
+Program Ends
+
+Output
+
+Static Block
+Main Method
+Constructor
+
+
+Comparison Table
+Static Variable	  Instance Variable
+Belongs to class	Belongs to object
+One copy	      One copy per object
+Shared by all objects	Separate copy for every object
+Stored once for the class	Stored inside each object
+
+Static Method	Instance Method
+Belongs to class	Belongs to object
+Called using ClassName.method()	Called using object.method()
+Can directly access only static members	Can access both static and instance members
+
+Static Block	                 Constructor
+Runs once when the class is loaded	  Runs every time an object is created
+Executes before main()   Executes after new
+
+Interview Questions
+Q1. What is a static variable?
+Answer:
+A static variable belongs to the class. Only one copy is created and shared among all objects.
+
+Q2. Why do we use static variables?
+To save memory when a value is common to all objects.
+
+Example:
+College Name
+Company Name
+Bank Name
+PI Value
+Q3. What is a static method?
+A method that belongs to the class and can be called without creating an object.
+
+Q4. Why can't a static method directly access instance variables?
+Because instance variables belong to objects, and a static method belongs to the class. Without an object, Java doesn't know which instance variable to use.
+
+Q5. Why is main() static?
+Because the JVM calls main() without creating an object.
+
+Q6. What is a static block?
+A static block is executed once when the class is loaded into memory, before main().
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
