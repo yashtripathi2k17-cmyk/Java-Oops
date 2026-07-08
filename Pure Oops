@@ -297,6 +297,9 @@ We use the this keyword to refer to the current object of the class. It is mainl
 (or constructor parameters) when they have the same name. It is also used for constructor chaining, calling current class methods, passing the 
 current object, and returning the current object.
 
+Interview Definition
+this refers to the current object and is mainly used to differentiate instance variables from local variables.
+
 
 2-----Uses of this
 
@@ -554,3 +557,1242 @@ protected member using this or super (or directly), but it cannot access it thro
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+1--------Static Keyword in Java (Interview Notes)
+
+The static keyword is used for class-level members.
+it is mainly is used memory mangement in java
+
+Static belongs to the class, not to individual objects.
+
+There are 3 main uses of static in Java:
+
+Static Variable
+Static Method
+Static Block
+1. Static Variable
+What is a Static Variable?
+
+A static variable is shared by all objects of a class.
+
+There is only one copy of a static variable, no matter how many objects are created.
+
+Why Do We Need a Static Variable?
+
+Suppose every student belongs to the same college.
+
+Without static
+
+class Student {
+
+    String name;
+    int rollNo;
+    String college = "Poornima";
+}
+Student s1 = new Student();
+Student s2 = new Student();
+Student s3 = new Student();
+
+Memory
+
+Student 1
+---------
+college = Poornima
+
+Student 2
+---------
+college = Poornima
+
+Student 3
+---------
+college = Poornima
+
+Three copies of "Poornima" are created.
+
+This wastes memory.
+
+Solution
+class Student {
+
+    String name;
+    int rollNo;
+
+    static String college = "Poornima";
+}
+
+Memory
+
+Method Area (Class Memory)
+
+Student Class
+--------------
+college = Poornima
+
+Heap
+
+Student Object 1
+name
+rollNo
+
+Student Object 2
+name
+rollNo
+
+Student Object 3
+name
+rollNo
+
+Now only one copy of college exists.
+
+Every object shares it.
+
+Example
+class Student {
+
+    String name;
+    static String college = "Poornima";
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+        Student s2 = new Student();
+
+        s1.name = "Yash";
+        s2.name = "Rahul";
+
+        System.out.println(s1.college);
+        System.out.println(s2.college);
+    }
+}
+
+Output
+
+Poornima
+Poornima
+Changing Static Variable
+class Student {
+
+    static String college = "Poornima";
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+        Student s2 = new Student();
+
+        s1.college = "JECRC";
+
+        System.out.println(s1.college);
+        System.out.println(s2.college);
+    }
+}
+
+Output
+
+JECRC
+JECRC
+Why?
+
+Because there is only one shared copy of college.
+
+Interview Definition
+
+A static variable belongs to the class instead of individual objects. Only one copy is created and shared among all objects.
+
+2. Static Method
+What is a Static Method?
+
+A static method belongs to the class, not to an object.
+
+It can be called without creating an object.
+
+Why Do We Need It?
+
+Suppose you want to print the college name.
+
+Without static
+
+Student s = new Student();
+s.displayCollege();
+
+But the method only uses a static variable.
+
+Creating an object is unnecessary.
+
+Solution
+class Student {
+
+    static String college = "Poornima";
+
+    static void displayCollege() {
+
+        System.out.println(college);
+    }
+}
+
+Call it directly:
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student.displayCollege();
+    }
+}
+
+Output
+
+Poornima
+Can Static Method Access Static Variable?
+class Student {
+
+    static String college = "Poornima";
+
+    static void show() {
+
+        System.out.println(college);
+    }
+}
+
+✅ Yes
+
+Can Static Method Access Instance Variable?
+class Student {
+
+    int age = 20;
+
+    static void show() {
+
+        System.out.println(age);
+    }
+}
+
+❌ Compile Time Error
+
+Why?
+
+Because age belongs to an object, but a static method belongs to the class.
+
+There may be many objects with different values of age.
+
+Java doesn't know which object's age to use.
+
+Correct Way
+class Student {
+
+    int age = 20;
+
+    static void show() {
+
+        Student s = new Student();
+
+        System.out.println(s.age);
+    }
+}
+
+Now the method has a specific object to access.
+
+Why is main() Static?
+public static void main(String[] args)
+
+When the JVM starts your program, no object exists yet.
+
+The JVM must call main() directly.
+
+That's why main() is static.
+
+Interview Definition
+
+A static method belongs to the class and can be called without creating an object.
+
+3. Static Block
+What is a Static Block?
+
+A static block is a block of code that runs once when the class is loaded into memory.
+
+Syntax
+
+static {
+
+}
+Why Do We Need It?
+
+Sometimes we want to execute initialization code before main() starts.
+
+For example:
+
+Load configuration
+Connect to a database
+Print a startup message
+Initialize static variables
+Example
+class Student {
+
+    static {
+
+        System.out.println("Application Started");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Method");
+    }
+}
+
+Output
+
+Application Started
+Main Method
+Example with Constructor
+class Student {
+
+    static {
+
+        System.out.println("Static Block");
+    }
+
+    Student() {
+
+        System.out.println("Constructor");
+    }
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+    }
+}
+
+Output
+
+Static Block
+Constructor
+Multiple Static Blocks
+class Test {
+
+    static {
+
+        System.out.println("First");
+    }
+
+    static {
+
+        System.out.println("Second");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main");
+    }
+}
+
+Output
+
+First
+Second
+Main
+
+Static blocks execute in the order they appear.
+
+Complete Execution Flow
+
+Consider this program:
+
+class Test {
+
+    static int x = 10;
+
+    static {
+
+        System.out.println("Static Block");
+    }
+
+    Test() {
+
+        System.out.println("Constructor");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Method");
+
+        Test t = new Test();
+    }
+}
+
+Execution order:
+
+Program Starts
+      ↓
+Class Loaded
+      ↓
+Static Variable Initialized
+      ↓
+Static Block Executes
+      ↓
+main() Starts
+      ↓
+Object Created
+      ↓
+Constructor Executes
+      ↓
+Program Ends
+
+Output
+
+Static Block
+Main Method
+Constructor
+
+
+Comparison Table
+Static Variable	  Instance Variable
+Belongs to class	Belongs to object
+One copy	      One copy per object
+Shared by all objects	Separate copy for every object
+Stored once for the class	Stored inside each object
+
+Static Method	Instance Method
+Belongs to class	Belongs to object
+Called using ClassName.method()	Called using object.method()
+Can directly access only static members	Can access both static and instance members
+
+Static Block	                 Constructor
+Runs once when the class is loaded	  Runs every time an object is created
+Executes before main()   Executes after new
+
+Interview Questions
+Q1. What is a static variable?
+Answer:
+A static variable belongs to the class. Only one copy is created and shared among all objects.
+
+Q2. Why do we use static variables?
+To save memory when a value is common to all objects.
+
+Example:
+College Name
+Company Name
+Bank Name
+PI Value
+Q3. What is a static method?
+A method that belongs to the class and can be called without creating an object.
+
+Q4. Why can't a static method directly access instance variables?
+Because instance variables belong to objects, and a static method belongs to the class. Without an object, Java doesn't know which instance variable to use.
+
+Q5. Why is main() static?
+Because the JVM calls main() without creating an object.
+
+Q6. What is a static block?
+A static block is executed once when the class is loaded into memory, before main().
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+1----Inheritance 
+
+1. What is Inheritance?
+Definition
+Inheritance is an OOP concept in which one class acquires the properties and behaviors of another class.
+
+In simple words:
+A child class can use the variables and methods of the parent class without rewriting them.
+
+Q. Why do we use inheritance?
+We use inheritance to reuse existing code, reduce duplication, improve maintainability, and establish an IS-A relationship between classes.
+Inheritance represents an IS-A relationship.
+
+. Memory Representation
+Consider
+
+class Person {
+    String name;
+    int age;
+}
+class Student extends Person {
+    int rollNo;
+}
+
+Object
+Student s = new Student();
+
+Memory
+Heap
+Student Object
+-------------------
+name
+age
+rollNo
+-------------------
+2--------Constructor Flow
+
+Example
+class Person {
+    Person(){
+        System.out.println("Person Constructor");
+    }
+}
+class Student extends Person {
+    Student(){
+        System.out.println("Student Constructor");
+    }
+}
+Object
+Student s = new Student();
+
+Output
+Person Constructor
+Student Constructor
+
+***************NOTE:-
+
+Rule (Most Important)
+Whenever a child object is created, the parent constructor always executes first, then the child constructor.
+
+
+
+3----**********Types of Inheritance
+What are Types of Inheritance?
+Inheritance can be organized in different structures depending on how classes are related.
+There are 5 types of inheritance.
+
+               Inheritance
+
+        ┌────────┬─────────┬────────────┬────────────┬──────────┐
+        │        │         │            │            │
+      Single  Multilevel Hierarchical Multiple     Hybrid
+
+1. Single Inheritance ⭐⭐⭐⭐⭐
+Definition
+One child class inherits from one parent class.
+Diagram
+Person
+   │
+   ▼
+Student
+
+There is only one parent and one child.
+
+Java Example
+class Person {
+    void display() {
+        System.out.println("I am Person");
+    }
+}
+
+class Student extends Person {
+    void study() {
+        System.out.println("I am Student");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.display();
+        s.study();
+    }
+}
+
+Output
+I am Person
+I am Student
+C++ Example
+
+#include<iostream>
+using namespace std;
+
+class Person{
+public:
+    void display(){
+        cout<<"I am Person"<<endl;
+    }
+};
+class Student:public Person{
+public:
+    void study(){
+        cout<<"I am Student"<<endl;
+    }
+
+};
+int main(){
+
+    Student s;
+    s.display();
+    s.study();
+}
+Memory
+Student Object
+-------------------
+Person Part
+display()
+-------------------
+Student Part
+study()
+-------------------
+
+Interview Questions
+Q. What is Single Inheritance?
+Answer
+When one child inherits from one parent.
+
+
+2. Multilevel Inheritance ⭐⭐⭐⭐⭐
+Definition
+A child becomes the parent of another child.
+Diagram
+Person
+   │
+   ▼
+Student
+   │
+   ▼
+EngineeringStudent
+
+Java Example
+class Person{
+    void eat(){
+        System.out.println("Eat");
+    }
+
+}
+class Student extends Person{
+    void study(){
+        System.out.println("Study");
+    }
+}
+class EngineeringStudent extends Student{
+    void code(){
+        System.out.println("Coding");
+    }
+}
+public class Main{
+    public static void main(String args[]){
+        EngineeringStudent e=new EngineeringStudent();
+        e.eat();
+        e.study();
+        e.code();
+    }
+
+}
+
+Output
+
+Eat
+Study
+Coding
+Memory
+
+EngineeringStudent Object
+---------------------
+Person
+eat()
+---------------------
+Student
+study()
+
+---------------------
+
+EngineeringStudent
+
+code()
+
+---------------------
+
+Constructor Flow
+
+Person
+↓
+Student
+↓
+EngineeringStudent
+
+3. Hierarchical Inheritance ⭐⭐⭐⭐⭐
+Definition
+One parent has multiple children.
+Diagram
+
+          Person
+         /      \
+        /        \
+   Student      Teacher
+
+Java
+
+class Person{
+
+    void eat(){
+
+        System.out.println("Eat");
+
+    }
+
+}
+
+class Student extends Person{
+
+    void study(){
+
+        System.out.println("Study");
+
+    }
+
+}
+
+class Teacher extends Person{
+
+    void teach(){
+
+        System.out.println("Teach");
+
+    }
+
+}
+
+Objects
+
+Student s=new Student();
+
+Teacher t=new Teacher();
+
+Output
+
+Student
+
+↓
+
+eat()
+
+study()
+
+Teacher
+
+↓
+
+eat()
+
+teach()
+
+Memory
+
+Student Object
+
+Person Data
+
+Student Data
+
+
+Teacher Object
+
+Person Data
+
+Teacher Data
+
+Interview
+
+Q.
+
+Can Student access Teacher methods?
+
+Answer
+
+❌ No
+
+Why?
+
+Because they are siblings.
+
+4. Multiple Inheritance ⭐⭐⭐⭐⭐
+
+Definition
+
+One child inherits from multiple parents.
+
+Diagram
+
+Father       Mother
+      \      /
+       \    /
+        Child
+C++ Supports It
+#include<iostream>
+using namespace std;
+
+class Father{
+
+public:
+
+    void money(){
+
+        cout<<"Money"<<endl;
+
+    }
+
+};
+
+class Mother{
+
+public:
+
+    void love(){
+
+        cout<<"Love"<<endl;
+
+    }
+
+};
+
+class Child:public Father,public Mother{
+
+};
+
+int main(){
+
+    Child c;
+
+    c.money();
+
+    c.love();
+
+}
+
+Output
+
+Money
+
+Love
+Java
+class Father{
+
+}
+
+class Mother{
+
+}
+
+class Child extends Father,Mother{
+
+}
+
+Compile Error
+
+Java does NOT allow this.
+
+Why?
+
+Because of
+
+Diamond Problem
+
+Suppose
+
+          Animal
+         /      \
+        /        \
+     Dog        Cat
+        \        /
+         \      /
+         Tiger
+
+Suppose
+
+Animal
+
+void sound()
+
+Dog
+
+Overrides
+
+sound()
+
+Cat
+
+Overrides
+
+sound()
+
+Now
+
+Tiger
+
+inherits Dog and Cat.
+
+Question
+
+Which
+
+sound()
+
+should Tiger inherit?
+
+Dog's?
+
+or
+
+Cat's?
+
+Java says
+
+Confusion
+
+This is
+
+Diamond Problem
+
+C++ Solution
+
+Uses
+
+Virtual Inheritance
+
+Java Solution
+
+Simply
+
+No Multiple Inheritance
+5. Hybrid Inheritance
+
+Combination of
+
+Single
+
++
+
+Multiple
+
++
+
+Hierarchical
+
+Diagram
+
+        A
+
+      /   \
+
+     B     C
+
+       \ /
+
+        D
+
+C++
+
+Supports
+
+Yes
+
+Java
+
+No
+
+because
+
+Hybrid requires
+
+Multiple Inheritance.
+
+How Java Solves This?
+
+Using
+
+Interfaces
+
+Example
+
+interface Father{
+
+    void money();
+
+}
+
+interface Mother{
+
+    void love();
+
+}
+
+class Child implements Father,Mother{
+
+}
+
+Interfaces don't carry implementation state the way classes do, so Java avoids the ambiguity that multiple class inheritance can create.
+
+Complete Comparison
+Type	C++	Java
+Single	✅	✅
+Multilevel	✅	✅
+Hierarchical	✅	✅
+Multiple	✅	❌ (with classes)
+Hybrid	✅	❌ (with classes)
+Memory Diagram
+
+Single
+
+Person
+
+↓
+
+Student
+
+Multilevel
+
+Person
+
+↓
+
+Student
+
+↓
+
+EngineeringStudent
+
+Hierarchical
+
+       Person
+
+      /      \
+
+Student    Teacher
+
+Multiple
+
+Father    Mother
+
+      \   /
+
+      Child
+
+Hybrid
+
+      A
+
+    /   \
+
+   B     C
+
+     \ /
+
+      D
+Interview Questions
+Q1
+
+How many types of inheritance are there?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+
+Multiple
+
+Hybrid
+Q2
+
+Which inheritance types are supported in Java?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+Q3
+
+Does Java support Multiple Inheritance?
+
+Answer
+
+❌ With classes, No.
+
+✅ Through interfaces, Yes.
+
+Q4
+
+Why doesn't Java support Multiple Inheritance?
+
+Answer
+
+To avoid ambiguity (the Diamond Problem).
+
+Q5
+
+Which language supports Hybrid Inheritance?
+
+Answer
+
+C++
+
+Tricky MCQs
+MCQ 1
+class A{}
+
+class B extends A{}
+
+class C extends B{}
+
+Type?
+
+A Single
+
+B Multilevel
+
+C Hierarchical
+
+D Multiple
+
+Answer
+
+✅ B
+
+MCQ 2
+class A{}
+
+class B extends A{}
+
+class C extends A{}
+
+Type?
+
+Answer
+
+✅ Hierarchical
+
+MCQ 3
+class A{};
+
+class B{};
+
+class C:public A,public B{};
+
+Type?
+
+Answer
+
+✅ Multiple
+
+MCQ 4
+
+Which inheritance is not supported by Java classes?
+
+A Single
+
+B Hierarchical
+
+C Multilevel
+
+D Multiple
+
+Answer
+
+✅ D
+
+MCQ 5
+
+Which inheritance type can lead to the Diamond Problem?
+
+A Single
+
+B Hierarchical
+
+C Multiple
+
+D Multilevel
+
+Answer
+
+✅ C
+
+Clean Revision Notes
+Types of Inheritance
+
+1. Single
+Parent → Child
+
+2. Multilevel
+Parent → Child → Grandchild
+
+3. Hierarchical
+One Parent → Multiple Children
+
+4. Multiple
+Multiple Parents → One Child
+(C++ ✅, Java Classes ❌)
+
+5. Hybrid
+Combination of Multiple Types
+(C++ ✅, Java Classes ❌)
+
+Java supports:
+✔ Single
+✔ Multilevel
+✔ Hierarchical
+
+Java does NOT support:
+✘ Multiple (with classes)
+✘ Hybrid (with classes)
+
+Reason:
+Diamond Problem
+
+Solution in Java:
+Interfaces
+
+NOTE----Diamond Problem
+
+Suppose
+
+        Animal
+       /      \
+     Dog      Cat
+       \      /
+        Tiger
+
+Both Dog and Cat override:
+sound()
+
+Question:
+Which sound() should Tiger inherit?
+
+Dog's?
+Cat's?
+
+This ambiguity is called the Diamond Problem.
+Java avoids this by not allowing multiple inheritance of classes.
+
+Most Asked Interview Questions
+Q1. How many types of inheritance are there?
+
+Answer:
+
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q2. Which inheritance types are supported in Java?
+Answer:
+
+✅ Single
+✅ Multilevel
+✅ Hierarchical
+Q3. Which inheritance types are supported in C++?
+Answer:
+All five types:
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q4. Why doesn't Java support multiple inheritance with classes?
+Answer:
+To avoid the Diamond Problem, where the compiler cannot decide which parent method to inherit.
+
+Q5. How does Java support multiple inheritance?
+Answer:
+By using interfaces (implements keyword).
