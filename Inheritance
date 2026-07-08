@@ -1,0 +1,1731 @@
+1----Inheritance 
+
+1. What is Inheritance?
+Definition
+Inheritance is an OOP concept in which one class acquires the properties and behaviors of another class.
+
+In simple words:
+A child class can use the variables and methods of the parent class without rewriting them.
+
+Q. Why do we use inheritance?
+We use inheritance to reuse existing code, reduce duplication, improve maintainability, and establish an IS-A relationship between classes.
+Inheritance represents an IS-A relationship.
+
+
+
+--------------------------------------------------------------------------------------
+. Memory Representation
+Consider
+
+class Person {
+    String name;
+    int age;
+}
+class Student extends Person {
+    int rollNo;
+}
+
+Object
+Student s = new Student();
+
+Memory
+Heap
+Student Object
+-------------------
+name
+age
+rollNo
+---------------------------------------------------------------------
+
+
+2--------Constructor Flow
+
+Example
+class Person {
+    Person(){
+        System.out.println("Person Constructor");
+    }
+}
+class Student extends Person {
+    Student(){
+        System.out.println("Student Constructor");
+    }
+}
+Object
+Student s = new Student();
+
+Output
+Person Constructor
+Student Constructor
+
+***************NOTE:-
+
+Rule (Most Important)
+Whenever a child object is created, the parent constructor always executes first, then the child constructor.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+3----******Types of Inheritance
+
+What are Types of Inheritance?
+Inheritance can be organized in different structures depending on how classes are related.
+There are 5 types of inheritance.
+
+               Inheritance
+
+        ┌────────┬─────────┬────────────┬────────────┬──────────┐
+        │        │         │            │            │
+      Single  Multilevel Hierarchical Multiple     Hybrid
+
+1. Single Inheritance ⭐⭐⭐⭐⭐
+Definition
+One child class inherits from one parent class.
+Diagram
+Person
+   │
+   ▼
+Student
+
+There is only one parent and one child.
+
+Java Example
+class Person {
+    void display() {
+        System.out.println("I am Person");
+    }
+}
+
+class Student extends Person {
+    void study() {
+        System.out.println("I am Student");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.display();
+        s.study();
+    }
+}
+
+Output
+I am Person
+I am Student
+
+C++ Example
+#include<iostream>
+using namespace std;
+
+class Person{
+public:
+    void display(){
+        cout<<"I am Person"<<endl;
+    }
+};
+class Student:public Person{
+public:
+    void study(){
+        cout<<"I am Student"<<endl;
+    }
+
+};
+int main(){
+
+    Student s;
+    s.display();
+    s.study();
+}
+Memory
+Student Object
+-------------------
+Person Part
+display()
+-------------------
+Student Part
+study()
+-------------------
+
+Interview Questions
+Q. What is Single Inheritance?
+Answer
+When one child inherits from one parent.
+
+
+
+
+
+
+2. Multilevel Inheritance ⭐⭐⭐⭐⭐
+Definition
+A child becomes the parent of another child.
+Diagram
+Person
+   │
+   ▼
+Student
+   │
+   ▼
+EngineeringStudent
+
+Java Example
+class Person{
+    void eat(){
+        System.out.println("Eat");
+    }
+
+}
+class Student extends Person{
+    void study(){
+        System.out.println("Study");
+    }
+}
+class EngineeringStudent extends Student{
+    void code(){
+        System.out.println("Coding");
+    }
+}
+public class Main{
+    public static void main(String args[]){
+        EngineeringStudent e=new EngineeringStudent();
+        e.eat();
+        e.study();
+        e.code();
+    }
+
+}
+
+Output
+
+Eat
+Study
+Coding
+Memory
+
+EngineeringStudent Object
+---------------------
+Person
+eat()
+---------------------
+Student
+study()
+
+---------------------
+
+EngineeringStudent
+
+code()
+
+---------------------
+
+Constructor Flow
+
+Person
+↓
+Student
+↓
+EngineeringStudent
+
+
+
+3. Hierarchical Inheritance ⭐⭐⭐⭐⭐
+Definition
+One parent has multiple children.
+Diagram
+
+          Person
+         /      \
+        /        \
+   Student      Teacher
+
+Java
+
+class Person{
+    void eat(){
+        System.out.println("Eat");
+    }
+}
+class Student extends Person{
+    void study(){
+        System.out.println("Study");
+    }
+
+}
+
+class Teacher extends Person{
+    void teach(){
+        System.out.println("Teach");
+    }
+
+}
+
+Objects
+Student s=new Student();
+Teacher t=new Teacher();
+Output
+Student
+↓
+eat()
+study()
+Teacher
+↓
+eat()
+teach()
+
+Memory
+Student Object
+
+Person Data
+
+Student Data
+
+
+Teacher Object
+
+Person Data
+
+Teacher Data
+
+Interview
+Q.
+
+Can Student access Teacher methods?
+
+Answer
+❌ No
+Why?
+Because they are siblings.
+
+
+
+
+4. Multiple Inheritance ⭐⭐⭐⭐⭐
+
+Definition
+
+One child inherits from multiple parents.
+
+Diagram
+
+Father       Mother
+      \      /
+       \    /
+        Child
+C++ Supports It
+#include<iostream>
+using namespace std;
+
+class Father{
+
+public:
+    void money(){
+        cout<<"Money"<<endl;
+    }
+
+};
+class Mother{
+public:
+
+    void love(){
+        cout<<"Love"<<endl;
+    }
+};
+class Child:public Father,public Mother{
+
+};
+
+int main(){
+    Child c;
+    c.money();
+    c.love();
+
+}
+Output
+Money
+
+Love
+Java
+
+class Father{
+
+}
+
+class Mother{
+
+}
+
+class Child extends Father,Mother{
+
+}
+
+Compile Error
+
+Java does NOT allow this.
+
+Why?
+
+Because of
+
+Diamond Problem
+
+Suppose
+
+          Animal
+         /      \
+        /        \
+     Dog        Cat
+        \        /
+         \      /
+         Tiger
+
+Suppose
+
+Animal
+
+void sound()
+
+Dog
+
+Overrides
+
+sound()
+
+Cat
+
+Overrides
+
+sound()
+
+Now
+
+Tiger
+
+inherits Dog and Cat.
+
+Question
+
+Which
+
+sound()
+
+should Tiger inherit?
+
+Dog's?
+
+or
+
+Cat's?
+
+Java says
+
+Confusion
+
+This is
+
+Diamond Problem
+
+C++ Solution
+
+Uses
+
+Virtual Inheritance
+
+Java Solution
+
+Simply
+
+No Multiple Inheritance
+5. Hybrid Inheritance
+
+Combination of
+
+Single
+
++
+
+Multiple
+
++
+
+Hierarchical
+
+Diagram
+
+        A
+
+      /   \
+
+     B     C
+
+       \ /
+
+        D
+
+C++
+
+Supports
+
+Yes
+
+Java
+
+No
+
+because
+
+Hybrid requires
+
+Multiple Inheritance.
+
+How Java Solves This?
+
+Using
+
+Interfaces
+
+Example
+
+interface Father{
+
+    void money();
+
+}
+
+interface Mother{
+
+    void love();
+
+}
+
+class Child implements Father,Mother{
+
+}
+
+Interfaces don't carry implementation state the way classes do, so Java avoids the ambiguity that multiple class inheritance can create.
+
+Complete Comparison
+Type	C++	Java
+Single	✅	✅
+Multilevel	✅	✅
+Hierarchical	✅	✅
+Multiple	✅	❌ (with classes)
+Hybrid	✅	❌ (with classes)
+Memory Diagram
+
+Single
+
+Person
+
+↓
+
+Student
+
+Multilevel
+
+Person
+
+↓
+
+Student
+
+↓
+
+EngineeringStudent
+
+Hierarchical
+
+       Person
+
+      /      \
+
+Student    Teacher
+
+Multiple
+
+Father    Mother
+
+      \   /
+
+      Child
+
+Hybrid
+
+      A
+
+    /   \
+
+   B     C
+
+     \ /
+
+      D
+Interview Questions
+Q1
+
+How many types of inheritance are there?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+
+Multiple
+
+Hybrid
+Q2
+
+Which inheritance types are supported in Java?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+Q3
+
+Does Java support Multiple Inheritance?
+
+Answer
+
+❌ With classes, No.
+
+✅ Through interfaces, Yes.
+
+Q4
+
+Why doesn't Java support Multiple Inheritance?
+
+Answer
+
+To avoid ambiguity (the Diamond Problem).
+
+Q5
+
+Which language supports Hybrid Inheritance?
+
+Answer
+
+C++
+
+Tricky MCQs
+MCQ 1
+class A{}
+
+class B extends A{}
+
+class C extends B{}
+
+Type?
+
+A Single
+
+B Multilevel
+
+C Hierarchical
+
+D Multiple
+
+Answer
+
+✅ B
+
+MCQ 2
+class A{}
+
+class B extends A{}
+
+class C extends A{}
+
+Type?
+
+Answer
+
+✅ Hierarchical
+
+MCQ 3
+class A{};
+
+class B{};
+
+class C:public A,public B{};
+
+Type?
+
+Answer
+
+✅ Multiple
+
+MCQ 4
+
+Which inheritance is not supported by Java classes?
+
+A Single
+
+B Hierarchical
+
+C Multilevel
+
+D Multiple
+
+Answer
+
+✅ D
+
+MCQ 5
+
+Which inheritance type can lead to the Diamond Problem?
+
+A Single
+
+B Hierarchical
+
+C Multiple
+
+D Multilevel
+
+Answer
+
+✅ C
+
+Clean Revision Notes
+Types of Inheritance
+
+1. Single
+Parent → Child
+
+2. Multilevel
+Parent → Child → Grandchild
+
+3. Hierarchical
+One Parent → Multiple Children
+
+4. Multiple
+Multiple Parents → One Child
+(C++ ✅, Java Classes ❌)
+
+5. Hybrid
+Combination of Multiple Types
+(C++ ✅, Java Classes ❌)
+
+Java supports:
+✔ Single
+✔ Multilevel
+✔ Hierarchical
+
+Java does NOT support:
+✘ Multiple (with classes)
+✘ Hybrid (with classes)
+
+Reason:
+Diamond Problem
+
+Solution in Java:
+Interfaces
+
+NOTE----Diamond Problem
+
+Suppose
+
+        Animal
+       /      \
+     Dog      Cat
+       \      /
+        Tiger
+
+Both Dog and Cat override:
+sound()
+
+Question:
+Which sound() should Tiger inherit?
+
+Dog's?
+Cat's?
+
+This ambiguity is called the Diamond Problem.
+Java avoids this by not allowing multiple inheritance of classes.
+
+Most Asked Interview Questions
+Q1. How many types of inheritance are there?
+
+Answer:
+
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q2. Which inheritance types are supported in Java?
+Answer:
+
+✅ Single
+✅ Multilevel
+✅ Hierarchical
+Q3. Which inheritance types are supported in C++?
+Answer:
+All five types:
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q4. Why doesn't Java support multiple inheritance with classes?
+Answer:
+To avoid the Diamond Problem, where the compiler cannot decide which parent method to inherit.
+
+Q5. How does Java support multiple inheritance?
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Constructor Flow in Inheritance (C++)
+
+Rule (Most Important)
+When a child object is created:
+
+Parent Constructor → Child Constructor
+
+Reason: The child object contains the parent part, so the parent must be initialized first.
+
+Example 1: Single Inheritance
+class Person {
+public:
+    Person() {
+        cout << "Person Constructor\n";
+    }
+};
+
+class Student : public Person {
+public:
+    Student() {
+        cout << "Student Constructor\n";
+    }
+};
+
+int main() {
+    Student s;
+}
+Output
+Person Constructor
+Student Constructor
+Flow
+Create Student Object
+        ↓
+Call Person Constructor
+        ↓
+Call Student Constructor
+        ↓
+Object Ready
+Memory View
+Student Object
+------------------
+Person Part
+------------------
+Student Part
+------------------
+
+Since the object contains the Person part, C++ initializes it first.
+
+Parameterized Parent Constructor
+class Person {
+public:
+    Person(string name) {
+        cout << name;
+    }
+};
+
+class Student : public Person {
+public:
+    Student() : Person("Yash") {
+    }
+};
+Syntax
+Student() : Person("Yash")
+
+This is called the Initializer List.
+
+Java Equivalent
+super("Yash");
+Wrong Way ❌
+Student() {
+
+    Person("Yash");
+
+}
+
+This creates a temporary Person object, not the parent part of Student.
+
+Always use:
+
+Student() : Person("Yash")
+Multilevel Inheritance
+A
+↑
+B
+↑
+C
+C obj;
+Constructor Order
+A
+↓
+B
+↓
+C
+
+Output
+
+A Constructor
+B Constructor
+C Constructor
+Destructor Flow
+B obj;
+
+Output
+
+A Constructor
+B Constructor
+B Destructor
+A Destructor
+Order
+Construction
+
+Parent
+   ↓
+Child
+
+----------------
+
+Destruction
+
+Child
+   ↓
+Parent
+Java vs C++
+Java
+Student() {
+    super();
+}
+C++
+Student() : Person() {
+}
+Interview Questions
+Q1. Which constructor executes first?
+
+Answer: Parent constructor, then child constructor.
+
+Q2. Why?
+
+Answer: The child object contains the parent part, so it must be initialized first.
+
+Q3. How do you call a parent parameterized constructor?
+Student() : Person("Yash")
+
+Using the initializer list.
+
+Q4. Constructor order in multilevel inheritance?
+A → B → C
+Q5. Destructor order?
+C → B → A
+Easy Memory Trick
+Constructor	Destructor
+Parent → Child	Child → Parent
+
+Construction: Top → Down
+Destruction: Bottom → Up
+
+⭐ 10-Second Interview Answer
+
+"Whenever a child object is created in C++, the parent constructor executes first because the child object contains
+the parent part. If the parent has a parameterized constructor, we call it using the initializer list 
+(: Parent(args)). During destruction, the order is reversed: child destructor executes first, then the parent destructor."
+
+Answer:
+By using interfaces (implements keyword).
+
+Interview Questions
+Q1. Which constructor executes first in inheritance?
+
+Answer:
+
+The parent class constructor executes first, followed by the child class constructor.
+
+Q2. Why is the parent constructor called first?
+
+Answer:
+
+Because the child object contains the parent part. The parent part must be initialized before the child part.
+
+Q3. How do you call a parent parameterized constructor in C++?
+
+Answer:
+
+Using the initializer list.
+
+Student() : Person("Yash")
+Q4. What is the order of constructors in multilevel inheritance?
+A
+↓
+
+B
+↓
+
+C
+Q5. What is the order of destructors?
+C
+↓
+
+B
+↓
+
+A
+
+
+Module 3: Constructors in Inheritance (Java)
+1. Constructor
+A constructor is a special method that is automatically called when an object is created.
+Person p = new Person();
+
+Output
+
+Person Constructor
+2. Constructor Flow in Inheritance ⭐⭐⭐⭐⭐
+Rule
+
+When a child object is created:
+
+Parent Constructor
+        ↓
+Child Constructor
+Example
+class Person {
+    Person() {
+        System.out.println("Person");
+    }
+}
+
+class Student extends Person {
+    Student() {
+        System.out.println("Student");
+    }
+}
+Student s = new Student();
+Output
+Person
+Student
+Why?
+
+The child object contains the parent part, so Java initializes the parent first, then the child.
+
+Execution Flow
+Create Student Object
+        ↓
+Call Parent Constructor
+        ↓
+Parent Finished
+        ↓
+Call Child Constructor
+        ↓
+Object Ready
+3. If Parent Constructor Doesn't Exist
+class Person {
+}
+
+class Student extends Person {
+}
+
+✅ Compiles successfully.
+
+Reason: Java automatically provides a default constructor if no constructor is written.
+
+4. super() ⭐⭐⭐⭐⭐
+
+Used to call the parent class constructor.
+
+Student() {
+    super();
+}
+Important
+
+If you don't write super();, Java automatically inserts it as the first statement (only if the parent has a no-argument constructor).
+
+5. Parameterized Parent Constructor ⭐⭐⭐⭐⭐
+class Person{
+    Person(String name){}
+}
+
+Wrong ❌
+
+class Student extends Person{
+    Student(){}
+}
+
+Compile Error.
+
+Correct
+class Student extends Person{
+
+    Student(){
+
+        super("Yash");
+
+    }
+
+}
+Rule
+
+If the parent has only a parameterized constructor, the child must call it using:
+
+super(arguments);
+6. Constructor Chaining ⭐⭐⭐⭐⭐
+
+Constructors execute from the topmost parent to the child.
+
+A
+↓
+B
+↓
+C
+
+Output
+
+A
+B
+C
+7. this() vs super()
+this()	super()
+Calls another constructor in the same class	Calls the parent constructor
+Used within the same class	Used in inheritance
+
+Example
+
+this(10);
+super();
+8. Can We Use Both?
+Student(){
+
+    this();
+
+    super();
+
+}
+
+❌ Compile Error
+
+Rule
+
+Both this() and super() must be the first statement, so only one can be used.
+
+9. Multilevel Constructor Flow
+A
+↑
+B
+↑
+C
+
+Create
+
+new C();
+
+Output
+
+A
+B
+C
+
+Flow
+
+A
+↓
+B
+↓
+C
+10. Are Constructors Inherited?
+
+❌ No
+
+Constructors are not inherited.
+
+The child only calls the parent constructor using super().
+
+11. Java vs C++
+Java	C++
+super()	Initializer List : Parent()
+Automatic super()	Uses initializer list for parent constructor
+Constructor not inherited	Constructor not inherited
+Interview Questions
+Q1. Which constructor executes first?
+
+Answer: Parent constructor.
+
+Q2. Are constructors inherited?
+
+Answer: No.
+
+Q3. Why is super() used?
+
+Answer: To call the parent constructor.
+
+Q4. Does Java automatically insert super()?
+
+Answer: Yes, if the parent has a no-argument constructor.
+
+Q5. Can this() and super() be used together?
+
+Answer: No.
+
+Q6. Why?
+
+Both must be the first statement in the constructor.
+
+Q7. If the parent has only a parameterized constructor?
+
+Answer:
+
+super(arguments);
+
+must be called explicitly.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Access Modifiers in Inheritance
+What are Access Modifiers?
+
+Access modifiers control who can access variables, methods, and classes.
+
+Java has 4 access modifiers:
+
+public
+protected
+default (package-private)
+private
+Think of a House
+
+Imagine your house.
+
+Everyone can enter
+        ↓
+public
+
+---------------------
+
+Only Family
+        ↓
+protected
+
+---------------------
+
+Only People in My Colony
+        ↓
+default
+
+---------------------
+
+Only Me
+        ↓
+private
+
+This analogy helps you remember them.
+
+1. public
+Definition
+
+A public member can be accessed from anywhere.
+
+Example
+
+class Student {
+
+    public String name = "Yash";
+}
+Student s = new Student();
+
+System.out.println(s.name);
+
+Output
+
+Yash
+Where can it be accessed?
+Same Class	Same Package	Different Package	Subclass
+✅	✅	✅	✅
+Interview Definition
+
+Public members are accessible from anywhere in the program.
+
+2. private
+Definition
+
+A private member can be accessed only inside its own class.
+
+Example
+
+class Student {
+
+    private int age = 20;
+
+    void display() {
+
+        System.out.println(age);
+
+    }
+
+}
+
+Works.
+
+Outside class
+
+Student s = new Student();
+
+System.out.println(s.age);
+
+Compile Error.
+
+Why?
+
+Because
+
+private
+
+↓
+
+Only My Class
+
+Memory
+
+Student
+
+age
+
+↓
+
+Only Student class
+Interview Question
+
+Can child class access private variables?
+
+Answer
+
+❌ No.
+
+Private members are not inherited.
+
+3. default (Package-Private)
+
+If you don't write anything
+
+class Student {
+
+    int marks = 90;
+
+}
+
+Java automatically makes it
+
+default
+
+Meaning
+
+Accessible only
+
+Inside Same Package
+
+Package
+
+college
+
+Student
+
+class Student{
+
+int marks=90;
+
+}
+
+Teacher
+
+class Teacher{
+
+void test(){
+
+Student s=new Student();
+
+System.out.println(s.marks);
+
+}
+
+}
+
+Works.
+
+Different package
+
+school
+Student s=new Student();
+
+System.out.println(s.marks);
+
+Compile Error.
+
+Rule
+
+Default means
+
+My Package Only
+4. protected
+
+This is the most confusing.
+
+Let's understand slowly.
+
+Definition
+
+Protected means
+
+Same Package
+
+OR
+
+Different Package Child Class
+
+Suppose
+
+Package
+
+p1
+public class Animal{
+
+protected void sound(){
+
+System.out.println("Animal");
+
+}
+
+}
+
+Package
+
+p2
+class Dog extends Animal{
+
+void test(){
+
+sound();
+
+}
+
+}
+
+Works.
+
+Why?
+
+Because
+
+Dog inherited
+
+sound()
+
+Memory
+
+Dog Object
+
+------------------
+Animal Part
+
+sound()
+
+------------------
+
+Dog Part
+
+------------------
+
+Dog already owns
+
+sound()
+
+So Java allows it.
+
+But
+Animal a=new Animal();
+
+a.sound();
+
+Compile Error.
+
+Why?
+
+Because
+
+a
+
+↓
+
+Another Animal Object
+
+Not
+
+My inherited member
+
+Remember
+
+this.sound()
+
+↓
+
+My inherited method
+
+↓
+
+Allowed
+
+---------------------
+
+a.sound()
+
+↓
+
+Another object's method
+
+↓
+
+Not Allowed
+Rule
+
+Protected allows access
+
+✔ Through inheritance
+
+Not
+
+❌ Through parent object in another package.
+
+Complete Table
+Modifier	Same Class	Same Package	Different Package Subclass	Different Package Non-Subclass
+public	✅	✅	✅	✅
+protected	✅	✅	✅	❌
+default	✅	✅	❌	❌
+private	✅	❌	❌	❌
+Java vs C++
+Java	C++
+public	public
+protected	protected
+private	private
+default exists	No default access modifier
+
+
+Interview Questions
+Q1 What is private?
+
+Accessible only inside the same class.
+
+Q2 What is public?
+
+Accessible from everywhere.
+
+Q3 What is default?
+
+Accessible only inside the same package.
+
+Q4 What is protected?
+
+Accessible
+
+inside same package
+inside subclasses in different packages
+Q5 Which modifier is most restrictive?
+
+Answer
+
+private
+Q6 Which modifier is least restrictive?
+
+Answer
+
+public
+Q7 Can child class access private variables?
+
+Answer
+
+❌ No.
+
+Q8 Which modifier is package-private?
+
+Answer
+
+default
+Q9 Why is protected used?
+
+To allow subclasses to access parent members without exposing them to every class.
+
+Tricky MCQs
+MCQ 1
+class A{
+
+private int x=10;
+
+}
+
+class B extends A{
+
+void test(){
+
+System.out.println(x);
+
+}
+
+}
+
+Output?
+
+A 10
+
+B Compile Error
+
+C Runtime Error
+
+D Null
+
+✅ Answer
+
+Compile Error
+
+MCQ 2
+class A{
+
+protected int x=10;
+
+}
+
+class B extends A{
+
+void test(){
+
+System.out.println(x);
+
+}
+
+}
+
+Output?
+
+A 10
+
+B Compile Error
+
+C Runtime Error
+
+D Null
+
+✅ Answer
+
+10
+MCQ 3
+class A{
+
+int x=10;
+
+}
+
+class B{
+
+void test(){
+
+A a=new A();
+
+System.out.println(a.x);
+
+}
+
+}
+
+Same package.
+
+Output?
+
+✅
+
+10
+MCQ 4
+
+Different packages
+
+class A{
+
+int x=10;
+
+}
+class B{
+
+A a=new A();
+
+System.out.println(a.x);
+
+}
+
+Output?
+
+✅
+
+Compile Error
+MCQ 5
+
+Different packages
+
+class A{
+
+protected int x=10;
+
+}
+class B extends A{
+
+void test(){
+
+System.out.println(x);
+
+}
+
+}
+
+Output?
+
+✅
+
+10
+MCQ 6 (Favorite Interview Question)
+class A{
+
+protected int x=10;
+
+}
+class B extends A{
+
+void test(){
+
+A a=new A();
+
+System.out.println(a.x);
+
+}
+
+}
+
+Output?
+
+A 10
+
+B Compile Error
+
+C Runtime Error
+
+D Null
+
+✅ Answer: B
+
+Reason:
+
+x is protected. In a different package, you can access it through inheritance (this.x or just x), not through another parent object (a.x).
