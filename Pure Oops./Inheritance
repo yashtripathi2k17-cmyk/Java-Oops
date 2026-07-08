@@ -1,0 +1,807 @@
+1----Inheritance 
+
+1. What is Inheritance?
+Definition
+Inheritance is an OOP concept in which one class acquires the properties and behaviors of another class.
+
+In simple words:
+A child class can use the variables and methods of the parent class without rewriting them.
+
+Q. Why do we use inheritance?
+We use inheritance to reuse existing code, reduce duplication, improve maintainability, and establish an IS-A relationship between classes.
+Inheritance represents an IS-A relationship.
+
+. Memory Representation
+Consider
+
+class Person {
+    String name;
+    int age;
+}
+class Student extends Person {
+    int rollNo;
+}
+
+Object
+Student s = new Student();
+
+Memory
+Heap
+Student Object
+-------------------
+name
+age
+rollNo
+-------------------
+2--------Constructor Flow
+
+Example
+class Person {
+    Person(){
+        System.out.println("Person Constructor");
+    }
+}
+class Student extends Person {
+    Student(){
+        System.out.println("Student Constructor");
+    }
+}
+Object
+Student s = new Student();
+
+Output
+Person Constructor
+Student Constructor
+
+***************NOTE:-
+
+Rule (Most Important)
+Whenever a child object is created, the parent constructor always executes first, then the child constructor.
+
+
+
+3----**********Types of Inheritance
+What are Types of Inheritance?
+Inheritance can be organized in different structures depending on how classes are related.
+There are 5 types of inheritance.
+
+               Inheritance
+
+        ┌────────┬─────────┬────────────┬────────────┬──────────┐
+        │        │         │            │            │
+      Single  Multilevel Hierarchical Multiple     Hybrid
+
+1. Single Inheritance ⭐⭐⭐⭐⭐
+Definition
+One child class inherits from one parent class.
+Diagram
+Person
+   │
+   ▼
+Student
+
+There is only one parent and one child.
+
+Java Example
+class Person {
+    void display() {
+        System.out.println("I am Person");
+    }
+}
+
+class Student extends Person {
+    void study() {
+        System.out.println("I am Student");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.display();
+        s.study();
+    }
+}
+
+Output
+I am Person
+I am Student
+C++ Example
+
+#include<iostream>
+using namespace std;
+
+class Person{
+public:
+    void display(){
+        cout<<"I am Person"<<endl;
+    }
+};
+class Student:public Person{
+public:
+    void study(){
+        cout<<"I am Student"<<endl;
+    }
+
+};
+int main(){
+
+    Student s;
+    s.display();
+    s.study();
+}
+Memory
+Student Object
+-------------------
+Person Part
+display()
+-------------------
+Student Part
+study()
+-------------------
+
+Interview Questions
+Q. What is Single Inheritance?
+Answer
+When one child inherits from one parent.
+
+
+2. Multilevel Inheritance ⭐⭐⭐⭐⭐
+Definition
+A child becomes the parent of another child.
+Diagram
+Person
+   │
+   ▼
+Student
+   │
+   ▼
+EngineeringStudent
+
+Java Example
+class Person{
+    void eat(){
+        System.out.println("Eat");
+    }
+
+}
+class Student extends Person{
+    void study(){
+        System.out.println("Study");
+    }
+}
+class EngineeringStudent extends Student{
+    void code(){
+        System.out.println("Coding");
+    }
+}
+public class Main{
+    public static void main(String args[]){
+        EngineeringStudent e=new EngineeringStudent();
+        e.eat();
+        e.study();
+        e.code();
+    }
+
+}
+
+Output
+
+Eat
+Study
+Coding
+Memory
+
+EngineeringStudent Object
+---------------------
+Person
+eat()
+---------------------
+Student
+study()
+
+---------------------
+
+EngineeringStudent
+
+code()
+
+---------------------
+
+Constructor Flow
+
+Person
+↓
+Student
+↓
+EngineeringStudent
+
+3. Hierarchical Inheritance ⭐⭐⭐⭐⭐
+Definition
+One parent has multiple children.
+Diagram
+
+          Person
+         /      \
+        /        \
+   Student      Teacher
+
+Java
+
+class Person{
+
+    void eat(){
+
+        System.out.println("Eat");
+
+    }
+
+}
+
+class Student extends Person{
+
+    void study(){
+
+        System.out.println("Study");
+
+    }
+
+}
+
+class Teacher extends Person{
+
+    void teach(){
+
+        System.out.println("Teach");
+
+    }
+
+}
+
+Objects
+
+Student s=new Student();
+
+Teacher t=new Teacher();
+
+Output
+
+Student
+
+↓
+
+eat()
+
+study()
+
+Teacher
+
+↓
+
+eat()
+
+teach()
+
+Memory
+
+Student Object
+
+Person Data
+
+Student Data
+
+
+Teacher Object
+
+Person Data
+
+Teacher Data
+
+Interview
+
+Q.
+
+Can Student access Teacher methods?
+
+Answer
+
+❌ No
+
+Why?
+
+Because they are siblings.
+
+4. Multiple Inheritance ⭐⭐⭐⭐⭐
+
+Definition
+
+One child inherits from multiple parents.
+
+Diagram
+
+Father       Mother
+      \      /
+       \    /
+        Child
+C++ Supports It
+#include<iostream>
+using namespace std;
+
+class Father{
+
+public:
+
+    void money(){
+
+        cout<<"Money"<<endl;
+
+    }
+
+};
+
+class Mother{
+
+public:
+
+    void love(){
+
+        cout<<"Love"<<endl;
+
+    }
+
+};
+
+class Child:public Father,public Mother{
+
+};
+
+int main(){
+
+    Child c;
+
+    c.money();
+
+    c.love();
+
+}
+
+Output
+
+Money
+
+Love
+Java
+class Father{
+
+}
+
+class Mother{
+
+}
+
+class Child extends Father,Mother{
+
+}
+
+Compile Error
+
+Java does NOT allow this.
+
+Why?
+
+Because of
+
+Diamond Problem
+
+Suppose
+
+          Animal
+         /      \
+        /        \
+     Dog        Cat
+        \        /
+         \      /
+         Tiger
+
+Suppose
+
+Animal
+
+void sound()
+
+Dog
+
+Overrides
+
+sound()
+
+Cat
+
+Overrides
+
+sound()
+
+Now
+
+Tiger
+
+inherits Dog and Cat.
+
+Question
+
+Which
+
+sound()
+
+should Tiger inherit?
+
+Dog's?
+
+or
+
+Cat's?
+
+Java says
+
+Confusion
+
+This is
+
+Diamond Problem
+
+C++ Solution
+
+Uses
+
+Virtual Inheritance
+
+Java Solution
+
+Simply
+
+No Multiple Inheritance
+5. Hybrid Inheritance
+
+Combination of
+
+Single
+
++
+
+Multiple
+
++
+
+Hierarchical
+
+Diagram
+
+        A
+
+      /   \
+
+     B     C
+
+       \ /
+
+        D
+
+C++
+
+Supports
+
+Yes
+
+Java
+
+No
+
+because
+
+Hybrid requires
+
+Multiple Inheritance.
+
+How Java Solves This?
+
+Using
+
+Interfaces
+
+Example
+
+interface Father{
+
+    void money();
+
+}
+
+interface Mother{
+
+    void love();
+
+}
+
+class Child implements Father,Mother{
+
+}
+
+Interfaces don't carry implementation state the way classes do, so Java avoids the ambiguity that multiple class inheritance can create.
+
+Complete Comparison
+Type	C++	Java
+Single	✅	✅
+Multilevel	✅	✅
+Hierarchical	✅	✅
+Multiple	✅	❌ (with classes)
+Hybrid	✅	❌ (with classes)
+Memory Diagram
+
+Single
+
+Person
+
+↓
+
+Student
+
+Multilevel
+
+Person
+
+↓
+
+Student
+
+↓
+
+EngineeringStudent
+
+Hierarchical
+
+       Person
+
+      /      \
+
+Student    Teacher
+
+Multiple
+
+Father    Mother
+
+      \   /
+
+      Child
+
+Hybrid
+
+      A
+
+    /   \
+
+   B     C
+
+     \ /
+
+      D
+Interview Questions
+Q1
+
+How many types of inheritance are there?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+
+Multiple
+
+Hybrid
+Q2
+
+Which inheritance types are supported in Java?
+
+Answer
+
+Single
+
+Multilevel
+
+Hierarchical
+Q3
+
+Does Java support Multiple Inheritance?
+
+Answer
+
+❌ With classes, No.
+
+✅ Through interfaces, Yes.
+
+Q4
+
+Why doesn't Java support Multiple Inheritance?
+
+Answer
+
+To avoid ambiguity (the Diamond Problem).
+
+Q5
+
+Which language supports Hybrid Inheritance?
+
+Answer
+
+C++
+
+Tricky MCQs
+MCQ 1
+class A{}
+
+class B extends A{}
+
+class C extends B{}
+
+Type?
+
+A Single
+
+B Multilevel
+
+C Hierarchical
+
+D Multiple
+
+Answer
+
+✅ B
+
+MCQ 2
+class A{}
+
+class B extends A{}
+
+class C extends A{}
+
+Type?
+
+Answer
+
+✅ Hierarchical
+
+MCQ 3
+class A{};
+
+class B{};
+
+class C:public A,public B{};
+
+Type?
+
+Answer
+
+✅ Multiple
+
+MCQ 4
+
+Which inheritance is not supported by Java classes?
+
+A Single
+
+B Hierarchical
+
+C Multilevel
+
+D Multiple
+
+Answer
+
+✅ D
+
+MCQ 5
+
+Which inheritance type can lead to the Diamond Problem?
+
+A Single
+
+B Hierarchical
+
+C Multiple
+
+D Multilevel
+
+Answer
+
+✅ C
+
+Clean Revision Notes
+Types of Inheritance
+
+1. Single
+Parent → Child
+
+2. Multilevel
+Parent → Child → Grandchild
+
+3. Hierarchical
+One Parent → Multiple Children
+
+4. Multiple
+Multiple Parents → One Child
+(C++ ✅, Java Classes ❌)
+
+5. Hybrid
+Combination of Multiple Types
+(C++ ✅, Java Classes ❌)
+
+Java supports:
+✔ Single
+✔ Multilevel
+✔ Hierarchical
+
+Java does NOT support:
+✘ Multiple (with classes)
+✘ Hybrid (with classes)
+
+Reason:
+Diamond Problem
+
+Solution in Java:
+Interfaces
+
+NOTE----Diamond Problem
+
+Suppose
+
+        Animal
+       /      \
+     Dog      Cat
+       \      /
+        Tiger
+
+Both Dog and Cat override:
+sound()
+
+Question:
+Which sound() should Tiger inherit?
+
+Dog's?
+Cat's?
+
+This ambiguity is called the Diamond Problem.
+Java avoids this by not allowing multiple inheritance of classes.
+
+Most Asked Interview Questions
+Q1. How many types of inheritance are there?
+
+Answer:
+
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q2. Which inheritance types are supported in Java?
+Answer:
+
+✅ Single
+✅ Multilevel
+✅ Hierarchical
+Q3. Which inheritance types are supported in C++?
+Answer:
+All five types:
+Single
+Multilevel
+Hierarchical
+Multiple
+Hybrid
+Q4. Why doesn't Java support multiple inheritance with classes?
+Answer:
+To avoid the Diamond Problem, where the compiler cannot decide which parent method to inherit.
+
+Q5. How does Java support multiple inheritance?
+Answer:
+By using interfaces (implements keyword).
