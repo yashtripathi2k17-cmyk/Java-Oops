@@ -1,0 +1,319 @@
+1-----------Encapsulation in Java
+
+What is Encapsulation?
+
+Definition
+Encapsulation means wrapping data (variables) and methods into a single unit (class) and protecting the data from direct access.
+
+Simple definition:
+Hide the data and allow access only through methods.
+
+Why Do We Need Encapsulation?
+Suppose you have a Bank Account.
+
+Without encapsulation
+
+class Bank {
+
+    public int balance = 10000;
+}
+
+Anyone can do
+
+Bank b = new Bank();
+
+b.balance = -5000;
+
+Now balance becomes
+
+-5000
+
+❌ This is wrong.
+
+A bank balance should never become negative.
+
+Solution: Encapsulation
+
+class Bank {
+    private int balance = 10000;
+    public void setBalance(int balance) {
+        if(balance >= 0){
+            this.balance = balance;
+        }
+
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+}
+
+Now
+
+Bank b = new Bank();
+
+b.setBalance(-5000);
+
+Condition fails.
+
+Balance remains
+
+10000
+
+Data is protected.
+
+Real-Life Example
+
+Think of an ATM.
+
+Customer
+
+↓
+
+ATM Machine
+
+↓
+
+Bank Database
+
+You cannot directly change the bank database.
+
+You must go through the ATM.
+
+Similarly,
+
+Object
+
+↓
+
+Getter / Setter
+
+↓
+
+Private Variable
+How Encapsulation Works
+Private Data
+
+↓
+
+Getter / Setter
+
+↓
+
+Object
+Two Steps of Encapsulation
+Step 1
+
+Make variables
+
+private
+
+Example
+
+private String name;
+
+private int age;
+Step 2
+
+Provide Getter and Setter methods.
+
+Getter
+
+public String getName() {
+
+    return name;
+
+}
+
+Setter
+
+public void setName(String name) {
+
+    this.name = name;
+
+}
+Complete Example
+class Student {
+
+    private String name;
+    private int age;
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+    public void setAge(int age) {
+
+        this.age = age;
+
+    }
+
+    public String getName() {
+
+        return name;
+
+    }
+
+    public int getAge() {
+
+        return age;
+
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        s.setName("Yash");
+        s.setAge(22);
+
+        System.out.println(s.getName());
+        System.out.println(s.getAge());
+
+    }
+
+}
+
+Output
+
+Yash
+22
+Why Not Make Variables Public?
+public int age;
+
+Anyone can do
+
+age = -100;
+
+Wrong.
+
+With encapsulation
+
+public void setAge(int age){
+
+    if(age > 0){
+
+        this.age = age;
+
+    }
+
+}
+
+Now
+
+setAge(-100);
+
+Age will not change.
+
+Advantages of Encapsulation
+1. Data Security
+
+Hide important data.
+
+2. Data Validation
+
+Check values before storing them.
+
+Example
+
+if(age > 0)
+3. Easy Maintenance
+
+Change internal implementation without affecting other classes.
+
+4. Better Control
+
+Decide who can read or modify data.
+
+5. Flexibility
+
+You can later change how data is stored without changing the code that uses the class.
+
+Getter vs Setter
+Getter
+
+Used to read data.
+
+getName();
+
+Returns value.
+
+Setter
+
+Used to update data.
+
+setName("Yash");
+
+Changes value.
+
+Memory Diagram
+Student Object
+
+-------------------
+
+private name
+
+private age
+
+-------------------
+
+Getter
+
+Setter
+
+-------------------
+
+Outside class
+
+Object
+
+↓
+
+Getter/Setter
+
+↓
+
+Private Variables
+Interview Questions
+Q1. What is Encapsulation?
+
+Answer
+
+Wrapping data and methods into one class and protecting the data by making it private.
+
+Q2. How do we achieve Encapsulation?
+Make variables private.
+Provide public Getter and Setter methods.
+Q3. Why use private variables?
+
+To prevent direct access and protect data.
+
+Q4. Why use Getter?
+
+To read data.
+
+Q5. Why use Setter?
+
+To update data safely.
+
+Q6. Which access modifier is mostly used in encapsulation?
+private
+
+
+
+
+NOTE---Encapsulation vs Abstraction
+
+Students often confuse these.
+
+Encapsulation	     Abstraction
+Hides data	         Hides implementation
+Uses private variables	Uses abstract classes/interfaces
+Achieved with Getter & Setter        	Achieved with abstract methods
