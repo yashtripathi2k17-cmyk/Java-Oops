@@ -1,0 +1,2322 @@
+1------Defintion
+Interview Definition
+Polymorphism is an OOP concept where the same method behaves differently depending on the object that calls it.
+
+Simple definition:
+One method → Different behaviors.
+
+
+
+2-----Types of Polymorphism
+Java has 2 types.
+                Polymorphism
+             /                 \
+Compile Time            Runtime
+
+(Method Overloading)   (Method Overriding)
+
+Type 1: Compile-Time Polymorphism
+Also called
+Static Polymorphism
+
+Achieved using
+Method Overloading
+
+Example
+
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+}
+
+Same method
+add()
+Different parameters.
+Java decides which method to call during compilation.
+
+Type 2: Runtime Polymorphism
+
+Also called
+Dynamic Polymorphism
+Achieved using
+Method Overriding
+
+Example
+
+class Animal {
+
+    void sound() {
+
+        System.out.println("Animal");
+
+    }
+
+}
+class Dog extends Animal {
+
+    void sound() {
+
+        System.out.println("Dog");
+
+    }
+
+}
+
+Object
+
+Animal a = new Dog();
+a.sound();
+Output
+Dog
+
+Java decides at runtime.
+
+Compile Time vs Runtime
+Compile Time	   Runtime
+Decided by Compiler	Decided by JVM
+Method Overloading	Method Overriding
+Fast       	Slightly slower
+Early Binding	   Late Binding
+
+
+
+3------. Java vs C++
+Java
+Runtime polymorphism works automatically.
+Animal a = new Dog();
+a.sound();
+No extra keyword required.
+
+C++
+Need
+virtual
+Example
+
+class Animal {
+public:
+virtual void sound(){
+
+}
+
+};
+
+Without virtual
+Animal* a = new Dog();
+a->sound();
+
+Output
+Animal
+
+With virtual
+Output
+Dog
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+1-----Method Overloading (Compile-Time Polymorphism)
+
+1. What is Method Overloading?
+
+Definition
+Method Overloading means having multiple methods with the same name but different parameter lists in the same class.
+
+Interview Definition
+Method Overloading is the process of defining multiple methods with the same name but different parameters in the same class.
+
+Why Do We Need Method Overloading?
+Suppose you are creating a Calculator.
+Without overloading
+class Calculator {
+
+    int add2Numbers(int a, int b) {
+        return a + b;
+    }
+
+    int add3Numbers(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    double addDouble(double a, double b) {
+        return a + b;
+    }
+}
+
+Problems:
+
+Different method names
+Difficult to remember
+Poor readability
+Solution: Method Overloading
+
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+Now all methods have one meaningful name:
+
+add()
+Java automatically chooses the correct one.
+
+2. How Does Java Decide Which Method to Call?
+
+Example
+
+class Calculator {
+
+    void add(int a, int b) {
+        System.out.println("Two Integers");
+    }
+
+    void add(double a, double b) {
+        System.out.println("Two Doubles");
+    }
+}
+Calculator c = new Calculator();
+
+c.add(10,20);
+
+c.add(10.5,20.5);
+
+Output
+
+Two Integers
+Two Doubles
+Why?
+
+The compiler checks the arguments and selects the correct method.
+
+This is called Compile-Time Polymorphism.
+
+3. Rules of Method Overloading
+
+A method is overloaded if it differs by parameters.
+There are three valid ways:
+
+
+Rule 1: Different Number of Parameters
+
+void add(int a,int b)
+
+void add(int a,int b,int c)
+
+Valid ✅
+
+
+Rule 2: Different Type of Parameters
+void add(int a,int b)
+
+void add(double a,double b)
+
+Valid ✅
+
+
+Rule 3: Different Order of Parameters
+void display(int age,String name)
+
+void display(String name,int age)
+
+Valid ✅
+
+
+4. What is NOT Method Overloading?
+Only Changing Return Type
+int add(int a,int b){
+
+}
+
+double add(int a,int b){
+
+}
+
+❌ Compile Error
+
+Why?
+
+When calling
+
+add(10,20);
+
+Java doesn't look at the return type.
+
+It only looks at:
+
+Method name
+Parameters
+  Method Signature
+
+***********NOTE-----A method signature contains:
+
+Method Name
+Number of Parameters
+Parameter Types
+Order of Parameters
+
+It does NOT include:
+
+Return Type
+Access Modifier
+
+***************Constructor Overloading
+
+Constructors can also be overloaded.
+
+class Student{
+
+    Student(){
+
+        System.out.println("Default");
+
+    }
+
+    Student(String name){
+
+        System.out.println(name);
+
+    }
+
+    Student(String name,int age){
+
+        System.out.println(name+" "+age);
+
+    }
+
+}
+Student s1 = new Student();
+
+Student s2 = new Student("Yash");
+
+Student s3 = new Student("Yash",22);
+
+Output
+
+Default
+Yash
+Yash 22
+static
+final
+
+
+Interview Questions
+Q1. What is Method Overloading?
+
+Answer:
+
+Method Overloading is defining multiple methods with the same name but different parameter lists in the same class.
+
+Q2. Why do we use Method Overloading?
+Improves readability
+Improves code reuse
+Same logical operation can be performed on different inputs
+Q3. What is Compile-Time Polymorphism?
+
+Method selection is done by the compiler before execution.
+
+Q4. Can we overload by changing only return type?
+
+❌ No.
+
+Q5. Can constructors be overloaded?
+
+✅ Yes.
+
+Q6. Can static methods be overloaded?
+
+✅ Yes.
+
+Example
+
+static void show(){}
+
+static void show(int x){}
+Q7. Can private methods be overloaded?
+
+✅ Yes.
+
+Because overloading happens inside the same class.
+
+Difference Between Overloading and Overriding
+
+Method Overloading	  Method Overriding
+Same class	        Parent & Child
+Same method name	   Same method name
+Different parameters	Same parameters
+Compile-time           	Runtime
+Compiler decides	   JVM decides
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+*********Method Overriding (Interview Notes)
+
+1. What is Method Overriding?
+Definition
+Method Overriding occurs when a child class provides its own implementation of a method that already exists in the parent class.
+
+Interview Definition
+Method Overriding is the process in which a child class redefines a parent class method with the same method name, same parameter list, and compatible return type.
+
+2. Why Do We Need Method Overriding?
+Suppose every animal has a sound() method.
+Without overriding
+class Animal {
+
+    void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+
+Now create Dog.
+
+class Dog extends Animal {
+
+}
+Dog d = new Dog();
+d.sound();
+Output
+Animal Sound
+
+Question:
+Does a dog make an "Animal Sound"?
+❌ No.
+Every animal has a different sound.
+We need Dog to provide its own implementation.
+
+Solution
+class Animal {
+
+    void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+Dog d = new Dog();
+d.sound();
+Output
+Bark
+Now Dog behaves like a Dog.
+
+2------------  Rules of Method Overriding
+
+For overriding, the child method must have:
+
+Rule 1
+Same Method Name
+void sound()
+↓
+void sound()
+✔ Correct
+
+Rule 2
+Same Parameters
+sound()
+↓
+sound()
+✔ Correct
+Wrong
+sound(int x)
+This becomes Overloading, not Overriding.
+
+Rule 3
+Same Return Type (or Covariant Return Type)
+int show()
+↓
+int show()
+✔ Correct
+
+4. @Override Annotation
+Example
+class Animal {
+    void sound() {
+    }
+
+}
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+
+    }
+
+}
+Why use @Override?
+
+It tells the compiler:
+
+"I intend to override this method."
+
+If you accidentally make a mistake:
+
+@Override
+void sounds() {
+
+}
+
+Compile Error.
+
+Without @Override, Java would treat sounds() as a new method, and you might not notice the mistake.
+
+
+5. Can We Override static Methods?
+class Animal {
+
+    static void show() {
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    static void show() {
+
+    }
+
+}
+
+This is not overriding.
+
+It is Method Hiding.
+
+Why?
+
+Static methods belong to the class, not to objects.
+
+Runtime polymorphism works with objects.
+
+6. Can We Override final Methods?
+class Animal {
+
+    final void sound() {
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    void sound() {
+
+    }
+
+}
+
+Compile Error.
+
+Why?
+
+final means
+
+Cannot Be Changed
+
+So the child cannot override it.
+
+7. Can We Override private Methods?
+class Animal {
+
+    private void show() {
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    void show() {
+
+    }
+
+}
+
+This is not overriding.
+
+Why?
+
+Because private methods are not inherited.
+
+The show() in Dog is a completely new method.
+
+8. Access Modifier Rule
+
+A child class cannot reduce the visibility of the overridden method.
+
+Correct
+class Animal {
+
+    protected void show() {
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    public void show() {
+
+    }
+
+}
+
+✔ Allowed
+
+Visibility increased.
+
+Wrong
+class Animal {
+
+    public void show() {
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    protected void show() {
+
+    }
+
+}
+
+❌ Compile Error
+
+Visibility reduced.
+
+Easy Trick
+Child
+↓
+Can Increase Visibility
+↓
+Cannot Decrease Visibility
+
+
+
+3---------------Constructor Overriding?
+
+Can constructors be overridden?
+
+❌ No.
+
+Why?
+
+Constructors are not inherited.
+
+No inheritance
+
+↓
+
+No overriding.
+
+12. Runtime Example
+class Animal {
+
+    void sound() {
+
+        System.out.println("Animal");
+
+    }
+
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+
+        System.out.println("Dog");
+
+    }
+
+}
+Dog d = new Dog();
+
+d.sound();
+
+Output
+
+Dog
+
+The child's implementation executes.
+
+13. Java vs C++
+Java
+Animal a = new Dog();
+
+a.sound();
+
+Works automatically.
+
+C++
+
+Need
+
+virtual
+class Animal{
+
+public:
+
+virtual void sound(){
+
+}
+
+};
+
+Without virtual, runtime polymorphism does not happen.
+
+Interview Questions
+Q1. What is Method Overriding?
+
+A child class provides its own implementation of a parent class method.
+
+Q2. Which OOP concept uses Method Overriding?
+
+Runtime Polymorphism.
+
+Q3. Can static methods be overridden?
+
+❌ No.
+
+They are hidden, not overridden.
+
+Q4. Can final methods be overridden?
+
+❌ No.
+
+Q5. Can private methods be overridden?
+
+❌ No.
+
+Q6. Can constructors be overridden?
+
+❌ No.
+
+Q7. Why use @Override?
+
+To let the compiler verify that you are actually overriding a method.
+
+Q8. Can we reduce access modifier visibility?
+
+❌ No.
+
+Example:
+
+public
+
+↓
+
+protected
+
+Not allowed.
+
+Q9. Can we increase visibility?
+
+✔ Yes.
+
+Example:
+
+protected
+
+↓
+
+public
+
+Allowed.
+
+Tricky MCQs
+MCQ 1
+class A{
+
+    void show(){
+
+        System.out.println("A");
+
+    }
+
+}
+
+class B extends A{
+
+    void show(){
+
+        System.out.println("B");
+
+    }
+
+}
+
+Output?
+
+B b=new B();
+
+b.show();
+
+A)
+
+A
+
+B)
+
+B
+
+C)
+
+Compile Error
+
+D)
+
+Runtime Error
+
+✅ Answer
+
+B
+MCQ 2
+class A{
+
+    final void show(){}
+
+}
+
+class B extends A{
+
+    void show(){}
+
+}
+
+Output?
+
+A)
+
+Runs
+
+B)
+
+Compile Error
+
+C)
+
+Runtime Error
+
+D)
+
+Nothing
+
+✅ Answer
+
+Compile Error
+MCQ 3
+class A{
+
+    private void show(){}
+
+}
+
+class B extends A{
+
+    void show(){}
+
+}
+
+This is
+
+A)
+
+Overriding
+
+B)
+
+Overloading
+
+C)
+
+New Method
+
+D)
+
+Runtime Error
+
+✅ Answer
+
+New Method
+MCQ 4
+class A{
+
+    static void show(){}
+
+}
+
+class B extends A{
+
+    static void show(){}
+
+}
+
+This is
+
+A)
+
+Overriding
+
+B)
+
+Method Hiding
+
+C)
+
+Overloading
+
+D)
+
+Constructor Chaining
+
+✅ Answer
+
+Method Hiding
+MCQ 5
+
+Which annotation is used in overriding?
+
+A)
+
+@Overload
+
+B)
+
+@Override
+
+C)
+
+@Inherited
+
+D)
+
+@Runtime
+
+✅ Answer
+
+@Override
+Overloading vs Overriding
+Method Overloading	Method Overriding
+Same Class	Parent & Child
+Same Name	Same Name
+Different Parameters	Same Parameters
+Compile-Time	Runtime
+Compiler decides	JVM decides
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+1---------------------Runtime Polymorphism & Dynamic Method Dispatch
+1. What is Runtime Polymorphism?
+
+Definition
+Runtime Polymorphism means Java decides which overridden method to execute while the program is running (at runtime).
+
+Interview Definition
+Runtime Polymorphism is achieved using Method Overriding, where the JVM decides which method to call based on the actual object, not the reference variable.
+
+2. Why Do We Need Runtime Polymorphism?
+Suppose you're building a payment app.
+
+Parent class
+class Payment {
+    void pay() {
+        System.out.println("Payment");
+    }
+}
+
+Children
+
+Payment
+   ↓
+UPI
+
+Payment
+   ↓
+CreditCard
+
+Payment
+   ↓
+NetBanking
+
+Each payment method performs pay() differently.
+
+Instead of writing separate code for every payment type, we can use one parent reference.
+
+
+3. First Understand Object Creation
+Dog d = new Dog();
+There are two parts:
+
+Dog d
+↓
+Reference Variable
+
+new Dog()
+↓
+Actual Object
+
+Memory
+Stack                 Heap
+d  -----------------> Dog Object
+
+Reference
+↓
+Dog
+
+Object
+↓
+Dog
+
+Easy.
+
+4. Now Comes the Famous Line
+
+Animal a = new Dog();
+This is called Upcasting.
+
+Many students get confused here.
+
+Let's understand.
+Step 1
+Animal a;
+Means
+Reference Type = Animal
+No object yet.
+
+Step 2
+new Dog();
+Creates
+Dog Object
+
+Memory
+
+Heap
+
+Dog Object
+
+------------------
+Animal Part
+------------------
+
+Dog Part
+------------------
+
+Remember:
+
+A Dog object contains the Animal part because Dog extends Animal.
+
+Step 3
+
+Assignment
+
+Animal a = new Dog();
+
+Memory
+
+Stack
+
+a
+│
+│
+▼
+
+Heap
+
+Dog Object
+
+-------------------
+Animal Part
+
+-------------------
+
+Dog Part
+
+-------------------
+
+Notice carefully.
+
+Reference
+
+↓
+
+Animal
+
+Object
+
+↓
+
+Dog
+
+This is the most important point.
+
+5. Method Call
+
+Suppose
+
+class Animal {
+
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Dog");
+    }
+}
+
+Now
+
+Animal a = new Dog();
+
+a.sound();
+
+Question
+
+Should it print
+
+Animal
+
+or
+
+Dog
+
+Answer
+
+Dog
+Why?
+
+This is where the JVM works.
+
+JVM Execution (Step by Step)
+Step 1
+
+Compiler checks
+
+Animal a = new Dog();
+
+Is Dog a child of Animal?
+
+Yes.
+
+Allowed.
+
+Step 2
+
+Compiler checks
+
+a.sound();
+
+Does Animal have a sound() method?
+
+Yes.
+
+Compilation successful.
+
+Step 3 (Runtime)
+
+Now the JVM asks:
+
+What object is 'a' pointing to?
+
+Answer
+
+Dog Object
+
+Then the JVM executes
+
+Dog.sound();
+
+Output
+
+Dog
+Golden Rule ⭐⭐⭐⭐⭐
+Variables
+
+Use
+
+Reference Type
+Methods
+
+Use
+
+Actual Object
+
+This is one of the most important rules in Java.
+
+Memory Diagram
+Stack
+
+a
+│
+│
+▼
+
+Heap
+
+Dog Object
+
+-------------------
+Animal Part
+
+sound()
+
+-------------------
+
+Dog Part
+
+sound()
+
+-------------------
+
+The JVM follows the reference to the object, sees it's a Dog, and calls Dog.sound().
+
+6. Dynamic Method Dispatch
+
+This entire process is called:
+
+Dynamic Method Dispatch
+
+or
+
+Runtime Method Dispatch
+
+Meaning:
+
+The JVM dynamically decides which overridden method to execute at runtime based on the actual object.
+
+7. Variables Behave Differently
+
+Example
+
+class Animal {
+    int x = 10;
+}
+
+class Dog extends Animal {
+    int x = 20;
+}
+
+Now
+
+Animal a = new Dog();
+
+System.out.println(a.x);
+
+Output
+
+10
+
+Question
+
+Why not 20?
+
+Because variables are not polymorphic.
+
+Variables always use
+
+Reference Type
+
+Reference
+
+↓
+
+Animal
+
+↓
+
+Animal.x
+
+↓
+
+10
+
+Methods
+
+a.sound();
+
+Use
+
+Actual Object
+
+↓
+
+Dog
+
+↓
+
+Dog.sound()
+
+↓
+
+Dog
+
+Easy Trick
+Member	Uses
+Variable	Reference Type
+Method	Actual Object
+
+Remember this table forever.
+
+8. Upcasting
+Animal a = new Dog();
+
+Child
+
+↓
+
+Parent
+
+Automatic.
+
+No cast required.
+
+Why do we use Upcasting?
+
+Because it allows one parent reference to work with many child objects.
+
+Example
+
+Animal a;
+
+a = new Dog();
+
+a = new Cat();
+
+a = new Cow();
+
+Same variable.
+
+Different objects.
+
+This is flexibility.
+
+9. Why Not
+Dog d = new Animal();
+
+Compile Error.
+
+Because
+
+Animal
+
+is not always a Dog.
+
+A Dog is an Animal.
+
+But an Animal is not always a Dog.
+
+Think like this:
+
+Dog IS-A Animal
+
+✔ True
+
+Animal IS-A Dog
+
+✘ False
+
+Interview Questions
+Q1. What is Runtime Polymorphism?
+
+Answer
+
+The JVM decides which overridden method to execute based on the actual object during runtime.
+
+Q2. What is Dynamic Method Dispatch?
+
+The mechanism by which the JVM selects the overridden method at runtime.
+
+Q3. Why does
+Animal a = new Dog();
+
+a.sound();
+
+print Dog?
+
+Because the actual object is Dog, and methods are resolved using the actual object.
+
+Q4. Variables use?
+
+Reference Type.
+
+Q5. Methods use?
+
+Actual Object.
+
+Q6. Why do we use Upcasting?
+
+To achieve Runtime Polymorphism and write flexible code.
+Difference Between Compile-Time & Runtime Polymorphism
+Compile-Time	Runtime
+Method Overloading	Method Overriding
+Compiler decides	JVM decides
+Early Binding	Late Binding
+Faster	Slightly slower
+
+
+
+
+
+UPCASTING
+
+Child Object
+      ↓
+Parent Reference
+
+Animal a = new Dog();
+
+✔ Automatic
+✔ Safe
+✔ Used for Runtime Polymorphism
+
+----------------------------
+
+DOWNCASTING
+
+Parent Reference
+      ↓
+Child Reference
+
+Dog d = (Dog) a;
+
+✔ Manual
+✔ Requires Casting
+✔ Can throw ClassCastException
+
+----------------------------
+
+Safe Downcasting
+
+if(a instanceof Dog){
+    Dog d = (Dog)a;
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Dynamic Method Dispatch
+What is Dynamic Method Dispatch?
+
+Dynamic Method Dispatch is the process where the JVM decides at runtime which overridden method to execute.
+
+Simple meaning:
+
+Program Running
+      ↓
+JVM checks the actual object
+      ↓
+Calls that object's method
+Example
+class Animal {
+
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Dog");
+    }
+}
+Animal a = new Dog();
+
+a.sound();
+Output
+Dog
+Why?
+Step 1
+Animal a = new Dog();
+Reference → Animal
+Object → Dog
+Step 2
+
+Compiler checks:
+
+Does Animal have sound()?
+
+✅ Yes → Compile successful.
+
+Step 3
+
+When the program runs,
+
+JVM asks:
+
+Which object is 'a' pointing to?
+
+Answer:
+
+Dog
+
+So JVM calls:
+
+Dog.sound();
+
+Output:
+
+Dog
+Memory
+Stack                 Heap
+
+Animal a -----------> Dog Object
+
+Reference = Animal
+
+Actual Object = Dog
+
+Golden Rule ⭐⭐⭐⭐⭐
+Variables
+↓
+
+Reference Type
+
+------------------
+
+Methods
+↓
+
+Actual Object
+
+Example
+
+Animal a = new Dog();
+
+System.out.println(a.x);   // Variable
+
+a.sound();                 // Method
+
+Output
+
+10
+Dog
+Why is it called "Dynamic"?
+
+Because the JVM decides while the program is running (Runtime), not during compilation.
+
+Interview Definition
+
+Dynamic Method Dispatch is the mechanism by which the JVM calls the overridden method of the actual object at runtime.
+
+Easy Revision Notes
+Dynamic Method Dispatch
+
+↓
+
+JVM decides method at Runtime
+
+↓
+
+Uses Actual Object
+
+↓
+
+Works with Method Overriding
+
+↓
+
+Foundation of Runtime Polymorphism
+
+Example:
+
+Animal a = new Dog();
+
+a.sound();
+
+Output → Dog
+💡 One-Line Memory Trick
+
+Compiler checks the reference, JVM executes the actual object.
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+Excellent interview question. This is one of the biggest differences between Java and C++.
+
+Runtime Polymorphism in Java vs C++
+Java	C++
+Works automatically	Needs virtual keyword
+JVM decides method	Compiler + virtual table (vtable) decide method
+No virtual keyword	virtual is required
+1. Java Runtime Polymorphism
+Code
+class Animal {
+
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Dog");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Animal a = new Dog();
+
+        a.sound();
+    }
+}
+Output
+Dog
+Why?
+
+Java automatically supports runtime polymorphism.
+
+Execution:
+
+Animal a = new Dog();
+
+↓
+
+Reference = Animal
+
+↓
+
+Object = Dog
+
+↓
+
+JVM checks Actual Object
+
+↓
+
+Dog
+
+↓
+
+Dog.sound()
+
+No extra keyword is needed.
+
+2. C++ Without virtual
+#include<iostream>
+using namespace std;
+
+class Animal{
+
+public:
+
+    void sound(){
+
+        cout<<"Animal";
+
+    }
+
+};
+
+class Dog:public Animal{
+
+public:
+
+    void sound(){
+
+        cout<<"Dog";
+
+    }
+
+};
+
+int main(){
+
+    Animal* a=new Dog();
+
+    a->sound();
+
+}
+Output
+Animal
+Why?
+
+C++ checks the pointer type.
+
+Pointer
+
+↓
+
+Animal*
+
+↓
+
+Compiler calls
+
+↓
+
+Animal::sound()
+
+The compiler binds the call early because the function is not virtual.
+
+3. C++ With virtual
+#include<iostream>
+using namespace std;
+
+class Animal{
+
+public:
+
+    virtual void sound(){
+
+        cout<<"Animal";
+
+    }
+
+};
+
+class Dog:public Animal{
+
+public:
+
+    void sound(){
+
+        cout<<"Dog";
+
+    }
+
+};
+
+int main(){
+
+    Animal* a=new Dog();
+
+    a->sound();
+
+}
+Output
+Dog
+Why?
+
+The virtual keyword tells C++:
+
+"Don't decide now. Wait until runtime."
+
+Execution:
+
+Animal* a = new Dog();
+
+↓
+
+Pointer = Animal*
+
+↓
+
+Object = Dog
+
+↓
+
+vtable lookup
+
+↓
+
+Dog::sound()
+
+↓
+
+Dog
+Why Does C++ Need virtual?
+
+C++ is designed for performance and programmer control.
+
+If every function were virtual by default:
+
+More memory would be needed (vtable pointers).
+Method calls would be slightly slower.
+Programs that don't need polymorphism would pay that cost.
+
+So C++ lets the programmer choose.
+
+Why Doesn't Java Need virtual?
+
+Java was designed for simplicity and safety.
+
+By default, every instance method (except static, final, and private) behaves like a virtual function.
+
+So Java automatically supports runtime polymorphism.
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+***********NOTE
+Topics We'll Cover
+What is the virtual keyword?
+Why do we need virtual?
+What is a VTable?
+How does a VTable work?
+What is a VPTR?
+What is Virtual Inheritance?
+Difference between virtual and Virtual Inheritance
+1. What is the virtual Keyword?
+Definition
+
+The virtual keyword tells C++:
+
+"Decide which method to call at runtime, not at compile time."
+
+Without virtual
+#include<iostream>
+using namespace std;
+
+class Animal{
+public:
+    void sound(){
+        cout<<"Animal";
+    }
+};
+
+class Dog:public Animal{
+public:
+    void sound(){
+        cout<<"Dog";
+    }
+};
+
+int main(){
+
+    Animal* a=new Dog();
+
+    a->sound();
+
+}
+Output
+Animal
+Why?
+
+Compiler says
+
+Pointer Type = Animal*
+
+↓
+
+Call Animal::sound()
+
+Compiler doesn't care that the object is Dog.
+
+With virtual
+#include<iostream>
+using namespace std;
+
+class Animal{
+public:
+
+    virtual void sound(){
+
+        cout<<"Animal";
+
+    }
+
+};
+
+class Dog:public Animal{
+
+public:
+
+    void sound(){
+
+        cout<<"Dog";
+
+    }
+
+};
+
+int main(){
+
+    Animal* a=new Dog();
+
+    a->sound();
+
+}
+Output
+Dog
+Why?
+
+Now compiler says
+
+Don't decide now.
+
+↓
+
+Wait until Runtime.
+
+↓
+
+Check Actual Object.
+
+↓
+
+Call Dog::sound()
+
+Exactly like Java.
+
+Interview Definition
+
+The virtual keyword enables runtime polymorphism in C++.
+
+2. Why Do We Need virtual?
+
+Without virtual
+
+Pointer
+
+↓
+
+Animal*
+
+↓
+
+Animal Method
+
+With virtual
+
+Pointer
+
+↓
+
+Actual Object
+
+↓
+
+Dog Method
+3. What is a VTable?
+
+This is the most asked interview question.
+
+Definition
+
+VTable (Virtual Table) is a table created by the compiler that stores the addresses of virtual functions.
+
+Simple language
+
+Imagine a telephone directory.
+
+Dog
+
+sound() → Address 101
+
+eat() → Address 200
+
+This is the VTable.
+
+Memory
+
+Suppose
+
+class Animal{
+
+public:
+
+virtual void sound(){}
+
+virtual void eat(){}
+
+};
+
+Compiler creates
+
+Animal VTable
+
+-------------------
+
+sound()
+
+↓
+
+Address 100
+
+eat()
+
+↓
+
+Address 200
+
+-------------------
+
+Dog
+
+class Dog:public Animal{
+
+public:
+
+void sound(){}
+
+void eat(){}
+
+};
+
+Compiler creates
+
+Dog VTable
+
+--------------------
+
+sound()
+
+↓
+
+Address 300
+
+eat()
+
+↓
+
+Address 400
+
+--------------------
+
+Every class with virtual methods has its own VTable.
+
+4. What is VPTR?
+Definition
+
+VPTR = Virtual Pointer
+
+Every object of a class with virtual methods contains a hidden pointer called VPTR.
+
+It points to that class's VTable.
+
+Memory
+
+Dog Object
+
+--------------------
+
+VPTR
+
+↓
+
+Dog VTable
+
+--------------------
+
+Dog Data
+
+--------------------
+5. How Does VTable Work?
+
+Example
+
+Animal* a=new Dog();
+
+a->sound();
+
+Execution
+
+Step 1
+
+Create Dog object
+
+Memory
+
+Heap
+
+Dog Object
+
+↓
+
+VPTR
+
+↓
+
+Dog VTable
+Step 2
+
+Call
+
+a->sound();
+
+Compiler sees
+
+virtual
+
+So
+
+Instead of directly calling
+
+Animal::sound()
+
+Compiler says
+
+Go to VPTR
+
+↓
+
+VPTR points to Dog VTable
+
+↓
+
+Dog VTable
+
+↓
+
+sound()
+
+↓
+
+Dog::sound()
+
+Output
+
+Dog
+Complete Flow
+Animal* a=new Dog();
+
+↓
+
+Dog Object Created
+
+↓
+
+Dog Object has VPTR
+
+↓
+
+VPTR points to Dog VTable
+
+↓
+
+VTable contains Dog::sound()
+
+↓
+
+Call Dog::sound()
+
+This entire process is Runtime Polymorphism.
+
+6. What is Virtual Inheritance?
+
+This is different from the virtual keyword.
+
+Don't confuse them.
+
+Suppose
+
+        Animal
+
+      /       \
+
+   Dog        Cat
+
+      \       /
+
+        Tiger
+
+Dog inherits Animal.
+
+Cat inherits Animal.
+
+Tiger inherits Dog and Cat.
+
+Now Tiger gets
+
+Animal
+
+Animal
+
+Two copies.
+
+Memory
+
+Tiger
+
+--------------
+
+Animal
+
+--------------
+
+Dog
+
+--------------
+
+Animal
+
+--------------
+
+Cat
+
+--------------
+
+Problem
+
+Which Animal?
+
+This is called the Diamond Problem.
+
+Solution
+
+Use Virtual Inheritance.
+
+class Animal{
+
+};
+
+class Dog:virtual public Animal{
+
+};
+
+class Cat:virtual public Animal{
+
+};
+
+class Tiger:public Dog,public Cat{
+
+};
+
+Now memory
+
+Tiger
+
+----------------
+
+Animal
+
+----------------
+
+Dog
+
+----------------
+
+Cat
+
+----------------
+
+Only one Animal object.
+
+Problem solved.
+
+Difference Between virtual and Virtual Inheritance
+virtual Function	Virtual Inheritance
+Used for Runtime Polymorphism	Used to solve Diamond Problem
+Uses VTable	Shares one parent object
+Method-related	Inheritance-related
+Interview Questions
+Q1 What is virtual?
+
+Enables runtime polymorphism.
+
+Q2 What is a VTable?
+
+A table storing addresses of virtual functions.
+
+Q3 What is VPTR?
+
+A hidden pointer inside objects that points to the VTable.
+
+Q4 Why do we need Virtual Inheritance?
+
+To solve the Diamond Problem by ensuring only one shared copy of the common base class.
+
+Q5 Does Java have VTable?
+
+The JVM uses internal dispatch tables to implement dynamic method dispatch, but the exact implementation is JVM-dependent. Unlike C++, Java programmers do not work directly with a concept called a VTable.
+
+Easy Memory Trick
+virtual
+
+↓
+
+Runtime Polymorphism
+
+↓
+
+VTable
+
+↓
+
+VPTR
+
+↓
+
+Child Method Called
+
+--------------------------
+
+virtual inheritance
+
+↓
+
+Diamond Problem
+
+↓
+
+One Parent Copy
+Final Interview Summary
+virtual
+
+↓
+
+Used for Runtime Polymorphism
+
+↓
+
+Compiler creates VTable
+
+↓
+
+Every Object has VPTR
+
+↓
+
+VPTR points to VTable
+
+↓
+
+Correct Virtual Function Executes
+
+----------------------------------
+
+virtual inheritance
+
+↓
+
+Used in Multiple Inheritance
+
+↓
+
+Avoids Duplicate Parent Objects
+
+↓
+
+Solves Diamond Problem
+🎯 Most Asked Interview Question
+
+Q. What is the difference between virtual and virtual inheritance?
+
+Answer:
+
+virtual function is used to achieve runtime polymorphism. It lets C++ choose the correct overridden method at runtime using a VTable and VPTR.
+Virtual inheritance is used in multiple inheritance to solve the Diamond Problem by ensuring there is only one shared copy of the common base class. 
+They solve completely different problems.
