@@ -1,0 +1,394 @@
+******What is Abstraction?
+Definition
+Abstraction means hiding the implementation details and showing only the essential functionality to the user.
+
+Simple Definition
+Show WHAT to do, hide HOW it is done.
+
+What does Abstraction mean?
+Break the word:
+Abstraction
+↓
+Hide unnecessary details
+↓
+Show only important features
+Why Do We Need Abstraction?
+
+Suppose you drive a car.
+
+You only know:
+
+Start Car
+
+Brake
+
+Accelerator
+
+Steering
+
+Do you know how the engine, gearbox, fuel injection, and pistons work?
+
+❌ No.
+
+You don't need to know.
+The car hides all internal implementation.
+This is Abstraction.
+
+
+**Abstraction in Programming
+Suppose you are creating an Animal class.
+
+Every animal makes a sound.
+
+But Animal doesn't know what sound to make.
+
+So we write
+abstract class Animal {
+    abstract void sound();
+}
+
+Notice:
+
+We only say
+Every animal must have sound()
+We don't say how.
+
+Child Classes
+
+Dog
+
+class Dog extends Animal {
+
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+Cat
+
+class Cat extends Animal {
+
+    void sound() {
+        System.out.println("Meow");
+    }
+}
+
+Now
+
+Animal a = new Dog();
+
+a.sound();
+
+Output
+
+Bark
+Flow
+Animal
+
+↓
+
+sound()
+
+↓
+
+Dog
+
+↓
+
+Bark
+
+-------------------
+
+Cat
+
+↓
+
+Meow
+
+Parent defines
+
+WHAT
+
+Child defines
+
+HOW
+How is Abstraction Achieved?
+
+There are 2 ways:
+
+Abstraction
+
+↓
+
+1. Abstract Class
+
+2. Interface
+1. Abstract Class
+
+An abstract class is a class that
+
+Cannot create objects
+May contain abstract methods
+May contain normal methods
+
+Example
+
+abstract class Animal {
+
+    abstract void sound();
+
+    void sleep() {
+        System.out.println("Sleeping");
+    }
+}
+
+Here
+
+sound()
+
+↓
+
+Abstract Method
+
+sleep()
+
+↓
+
+Normal Method
+Abstract Method
+
+An abstract method has
+
+No body
+Only declaration
+abstract void sound();
+
+Wrong
+
+abstract void sound(){
+
+}
+
+Compile Error.
+
+Why?
+
+Because
+
+Parent doesn't know implementation.
+
+Child will implement it.
+
+Child Class
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+
+        System.out.println("Bark");
+
+    }
+
+}
+Object Creation
+
+Can we create
+
+Animal a = new Animal();
+
+❌ No.
+
+Because Animal is abstract.
+
+Correct
+
+Animal a = new Dog();
+Why?
+
+Dog provides the implementation of
+
+sound()
+Constructor in Abstract Class
+
+Can abstract classes have constructors?
+
+✅ Yes.
+
+abstract class Animal{
+
+Animal(){
+
+System.out.println("Animal");
+
+}
+
+}
+Variables in Abstract Class
+
+Allowed
+
+abstract class Animal{
+
+int age=10;
+
+}
+Normal Methods
+
+Allowed
+
+void sleep(){
+
+}
+Abstract Methods
+
+Allowed
+
+abstract void sound();
+Interface
+
+Interface is another way to achieve abstraction.
+
+Example
+
+interface Animal{
+
+void sound();
+
+}
+
+Dog
+
+class Dog implements Animal{
+
+public void sound(){
+
+System.out.println("Bark");
+
+}
+
+}
+Why Interface?
+
+Suppose
+
+Payment
+
+↓
+
+UPI
+
+↓
+
+Credit Card
+
+↓
+
+Debit Card
+
+Every payment
+
+Must have
+
+pay()
+
+Implementation is different.
+
+Difference Between Abstract Class & Interface
+Abstract Class	Interface
+Uses extends	Uses implements
+Can have constructors	No constructors
+Can have instance variables	Variables are public static final
+Can have abstract + normal methods	Traditionally only abstract methods (modern Java also allows default and static methods)
+Single inheritance	Multiple interfaces can be implemented
+Why Do We Need Abstraction?
+
+Suppose
+
+Employee
+
+↓
+
+Developer
+
+Tester
+
+Manager
+
+Every employee
+
+Must work.
+
+But
+
+Developer
+
+↓
+
+Coding
+
+Tester
+
+↓
+
+Testing
+
+Manager
+
+↓
+
+Management
+
+Parent says
+
+work()
+
+Child says
+
+How to work
+Advantages
+1. Hides Complexity
+
+User doesn't need internal details.
+
+2. Security
+
+Internal implementation stays hidden.
+
+3. Easy Maintenance
+
+Change implementation without changing user code.
+
+4. Loose Coupling
+
+Parent doesn't depend on child implementation.
+
+5. Reusability
+
+Parent class reused by many child classes
+Interview Questions
+Q1 What is Abstraction?
+
+Showing essential features while hiding implementation details.
+
+Q2 How is Abstraction achieved?
+Abstract Class
+Interface
+Q3 Can we create an object of an abstract class?
+
+❌ No
+
+Q4 Can an abstract class have constructors?
+
+✅ Yes
+
+Q5 Can an abstract class have normal methods?
+
+✅ Yes
+
+Q6 Can abstract methods have a body?
+
+❌ No
+
+Q7 Can interfaces have constructors?
+
+❌ No
